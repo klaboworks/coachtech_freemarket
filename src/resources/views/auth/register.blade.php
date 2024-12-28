@@ -14,20 +14,40 @@
                 <form action="/register" method="post">
                     @csrf
                     <div class="input-unit">
-                        <label for="user-name">ユーザー名</label>
-                        <input type="text" name="user-name">
+                        <label for="name">ユーザー名</label>
+                        <input type="text" name="name" value="{{ old('name') }}">
+                        @error('name')
+                            <small class="error-message">
+                                {{ $message }}
+                            </small>
+                        @enderror
                     </div>
                     <div class="input-unit">
                         <label for="email">メールアドレス</label>
-                        <input type="text" name="email">
+                        <input type="text" name="email" value="{{ old('email') }}">
+                        @error('email')
+                            <small class="error-message">
+                                {{ $message }}
+                            </small>
+                        @enderror
                     </div>
                     <div class="input-unit">
                         <label for="password">パスワード</label>
-                        <input type="text" name="password">
+                        <input type="password" name="password">
+                        @error('password')
+                            <small class="error-message">
+                                {{ $message }}
+                            </small>
+                        @enderror
                     </div>
                     <div class="input-unit">
-                        <label for="password-confirm">確認用パスワード</label>
-                        <input type="text" name="password-confirm">
+                        <label for="password_confirm">確認用パスワード</label>
+                        <input type="password" name="password_confirmation">
+                        @error('password')
+                            <small class="error-message">
+                                {{ $message }}
+                            </small>
+                        @enderror
                     </div>
                     <button type="submit" class="register-button">登録する</button>
                 </form>
