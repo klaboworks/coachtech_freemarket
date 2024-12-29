@@ -38,6 +38,7 @@
             gap: 20px;
             flex: 1;
             justify-content: flex-end;
+            align-items: center;
 
             .login,
             .logout,

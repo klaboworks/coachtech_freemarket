@@ -1,10 +1,11 @@
 .login__inner{
     max-width: 480px;
-    margin: 32px auto 0;
+    margin: 15vh auto 0;
 }
 
 .login-title{
     text-align: center;
+    font-size: 24px;
 }
 
 .input-panel{
