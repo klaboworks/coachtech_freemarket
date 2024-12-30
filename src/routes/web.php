@@ -1,14 +1,18 @@
 <?php
 
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/', [ItemController::class, 'index']);
-});
+Route::get('/', [ItemController::class, 'index']);
 
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/mypage', [UserController::class, 'viewProfile'])->name('view.profile');
+    Route::get('/mypage/profile', [UserController::class, 'editProfile'])->name('edit.profile');
+    Route::post('/mypage/profile', [UserController::class, 'updateProfile'])->name('update.profile');
+});
 
 // メール認証ルーティング
 Route::get('/email/verify', function () {
