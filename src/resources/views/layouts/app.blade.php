@@ -67,20 +67,20 @@
                 <img src="{{ asset('icon/logo.svg') }}" alt="">
             </div>
             @if (!Route::is('register', 'login'))
-                <input class="search-bar" type="text" placeholder="なにをお探しですか？">
-                <div class="nav-menu">
-                    @if (!Auth::check())
-                        <a href="{{ route('login') }}" class="login">ログイン</a>
-                    @endif
-                    @if (Auth::check())
-                        <form action="/logout" method="post">
-                            @csrf
-                            <button class="logout">ログアウト</button>
-                        </form>
-                    @endif
-                    <a href="/mypage" class="mypage">マイページ</a>
-                    <a href="/sell" class="list-items">出品</a>
-                </div>
+            <input class="search-bar" type="text" placeholder="なにをお探しですか？">
+            <div class="nav-menu">
+                @if (!Auth::check())
+                <a href="{{ route('login') }}" class="login">ログイン</a>
+                @endif
+                @if (Auth::check())
+                <form action="/logout" method="post">
+                    @csrf
+                    <button class="logout">ログアウト</button>
+                </form>
+                @endif
+                <a href="/mypage" class="mypage">マイページ</a>
+                <a href="/sell" class="list-items">出品</a>
+            </div>
             @endif
         </div>
     </header>
