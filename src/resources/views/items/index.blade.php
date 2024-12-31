@@ -3,13 +3,19 @@
 @section('title', '商品一覧')
 
 @section('css')
-    <link rel="stylesheet" href="{{ asset('css/index.css') }}">
+<link rel="stylesheet" href="{{ asset('css/index.css') }}">
 @endsection
 
 @section('content')
-    <section class="index">
-        <div class="section__inner">
-            商品一覧画面
+<section class="index">
+    <div class="section__inner">
+        商品一覧画面
+
+        @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
         </div>
-    </section>
+        @endif
+    </div>
+</section>
 @endsection
