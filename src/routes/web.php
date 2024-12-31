@@ -6,8 +6,14 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [ItemController::class, 'index']);
+Route::get('/', [ItemController::class, 'index'])->name('index');
 
+// 会員登録直後ユーザー設定ルーティング
+Route::middleware('auth')->group(function () {
+    Route::post('/set/profile', [UserController::class, 'updateProfile'])->name('set.profile');
+});
+
+// メール認証済みユーザールーティング
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/mypage', [UserController::class, 'viewProfile'])->name('view.profile');
     Route::get('/mypage/profile', [UserController::class, 'editProfile'])->name('edit.profile');
@@ -22,7 +28,7 @@ Route::get('/email/verify', function () {
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
 
-    return redirect('/');
+    return redirect(route('index'));
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
 Route::post('/email/verification-notification', function (Request $request) {

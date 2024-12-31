@@ -64,7 +64,9 @@
     <header class="header">
         <div class="header__inner">
             <div class="logo">
-                <img src="{{ asset('icon/logo.svg') }}" alt="">
+                <a href="{{route('index')}}">
+                    <img src="{{ asset('icon/logo.svg') }}" alt="">
+                </a>
             </div>
             @if (!Route::is('register', 'login'))
             <input class="search-bar" type="text" placeholder="なにをお探しですか？">
