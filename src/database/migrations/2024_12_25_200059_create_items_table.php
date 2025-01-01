@@ -17,8 +17,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('item_image');
             $table->string('item_name');
-            $table->string('brand_name');
-            $table->unsignedTinyInteger('price');
+            $table->string('brand_name')->nullable();
+            $table->unsignedMediumInteger('price');
             $table->string('item_description');
             $table->boolean('is_sold')->default(false);
             $table->timestamps();
