@@ -1,6 +1,7 @@
 .register__inner{
+    width: calc(100% - 80px);
     max-width: 480px;
-    margin: 15vh auto 0;
+    margin: 10vh auto 56px;
 }
 
 .register-title{

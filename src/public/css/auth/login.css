@@ -1,28 +1,29 @@
-.login__inner{
+.login__inner {
+    width: calc(100% - 80px);
     max-width: 480px;
-    margin: 15vh auto 0;
+    margin: 10vh auto 56px;
 }
 
-.login-title{
+.login-title {
     text-align: center;
     font-size: 24px;
 }
 
-.input-panel{
+.input-panel {
     margin: 40px 0;
 }
 
-.input-unit{
+.input-unit {
     display: flex;
     flex-direction: column;
     margin: 24px 0;
-    > input{
+    > input {
         height: 40px;
         padding-left: 8px;
     }
 }
 
-.login-button{
+.login-button {
     width: 100%;
     height: 40px;
     margin-top: 80px;
@@ -32,11 +33,11 @@
     border-radius: 4px;
 }
 
-.error-message{
+.error-message {
     color: tomato;
 }
 
-.to-login{
+.to-login {
     display: block;
     text-align: center;
     text-decoration: none;
