@@ -34,11 +34,15 @@
 
 .item-unit {
     max-width: 300px;
+    overflow: hidden;
 }
 
-.item-image > img {
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
+.item-image {
+    position: relative;
+    > img {
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+    }
 }
 
 .item-name {
@@ -48,5 +52,23 @@
 
     @media (max-width: 768px) {
         font-size: 2.4vw;
+    }
+}
+
+.label__sold-out {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: white;
+    font-weight: bold;
+    background-color: red;
+    padding: 24px 40px 4px;
+    transform: translate(40px, -8px) rotate(45deg);
+
+    @media (max-width: 500px) {
+        font-weight: normal;
+        font-size: 12px;
+        padding: 16px 24px 0;
+        transform: translate(28px, -8px) rotate(45deg);
     }
 }
