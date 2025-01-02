@@ -20,6 +20,9 @@
                 @foreach($items as $item)
                 <div class="item-unit">
                     <a href="" class="item-image">
+                        @if($item->is_sold)
+                        <span class="label__sold-out">Sold</span>
+                        @endif
                         <img src="{{$item->item_image}}" alt="">
                     </a>
                     <h2 class="item-name">{{$item->item_name}}</h2>
