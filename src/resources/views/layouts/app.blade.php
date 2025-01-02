@@ -29,8 +29,12 @@
         }
 
         .search-bar {
-            padding-left: 24px;
             flex: 1;
+
+            >input {
+                width: 100%;
+                padding-left: 24px;
+            }
         }
 
         .nav-menu {
@@ -69,7 +73,9 @@
                 </a>
             </div>
             @if (!Route::is('register', 'login'))
-            <input class="search-bar" type="text" placeholder="なにをお探しですか？">
+            <form action="{{route('index')}}" method="get" class="search-bar">
+                <input name="serach" type="text" placeholder="なにをお探しですか？">
+            </form>
             <div class="nav-menu">
                 @if (!Auth::check())
                 <a href="{{ route('login') }}" class="login">ログイン</a>
