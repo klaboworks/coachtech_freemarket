@@ -32,10 +32,6 @@
     }
 }
 
-.item-unit {
-    max-width: 300px;
-}
-
 .item-image > img {
     aspect-ratio: 1 / 1;
     object-fit: cover;
