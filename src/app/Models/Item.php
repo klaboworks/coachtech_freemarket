@@ -10,8 +10,10 @@ class Item extends Model
     public function scopeExceptCurrentUser($query)
     {
         if (Auth::check()) {
-            $query->where('user_id', '!=', Auth::user()->id);
+            return $query->where('user_id', '!=', Auth::user()->id);
         }
+
+        return $query;
     }
 
     public function scopeSearch($query, $search)
