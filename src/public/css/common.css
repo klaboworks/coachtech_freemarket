@@ -1,0 +1,32 @@
+.page-title {
+    font-size: 24px;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.block {
+    display: block;
+}
+
+.block-center {
+    margin: 0 auto;
+}
+
+.no-decoration {
+    text-decoration: none;
+}
+
+.error-message {
+    color: tomato;
+}
