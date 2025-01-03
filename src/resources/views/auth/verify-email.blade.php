@@ -3,13 +3,13 @@
 @section('title', 'メール認証')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/auth/verify-email.css') }}">
+<link rel="stylesheet" href="{{ asset('css/auth.css') }}">
 @endsection
 
 @section('content')
 <section class="verify-email">
-    <div class="verify-email__inner">
-        <h1 class="verify-title">メール認証を完了してください</h1>
+    <div class="verify-email__inner text-center">
+        <h1 class="page-title verify-title">メール認証を完了してください</h1>
         <div class="message-panel">
             <p>
                 ご登録いただいたメールアドレスに認証メールをお送りしております。<br>
@@ -20,7 +20,7 @@
             </p>
             <form action="{{ route('verification.send') }}" method="post">
                 @csrf
-                <button type="submit" class="send-email">認証メールを送信する</button>
+                <button type="submit" class="send-email-button">認証メールを送信する</button>
             </form>
         </div>
     </div>

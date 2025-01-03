@@ -3,17 +3,17 @@
 @section('title', 'ログイン')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/auth/login.css') }}">
+<link rel="stylesheet" href="{{ asset('css/auth.css') }}">
 @endsection
 
 @section('content')
 <section class="login">
-    <div class="login__inner">
-        <h1 class="login-title">ログイン</h1>
+    <div class="auth__inner">
+        <h1 class="page-title text-center">ログイン</h1>
         <div class="input-panel">
             <form action="{{route('login')}}" method="post">
                 @csrf
-                <div class="input-unit">
+                <div class="input-unit flex-column">
                     <label for="email">ユーザー名 / メールアドレス</label>
                     <input type="text" name="email" value="{{ old('email') }}">
                     @error('email')
@@ -22,7 +22,7 @@
                     </small>
                     @enderror
                 </div>
-                <div class="input-unit">
+                <div class="input-unit flex-column">
                     <label for="password">パスワード</label>
                     <input type="password" name="password">
                     @error('password')
@@ -31,10 +31,10 @@
                     </small>
                     @enderror
                 </div>
-                <button type="submit" class="login-button">ログインする</button>
+                <button type="submit" class="auth-submit-button">ログインする</button>
             </form>
         </div>
-        <a href="{{ route('register') }}" class="to-login">会員登録はこちら</a>
+        <a href="{{ route('register') }}" class="block text-center no-decoration">会員登録はこちら</a>
     </div>
 </section>
 @endsection
