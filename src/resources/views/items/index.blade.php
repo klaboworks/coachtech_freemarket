@@ -19,7 +19,7 @@
             <div class="items-panel">
                 @foreach($items as $item)
                 <div class="item-unit">
-                    <a href="" class="item-image">
+                    <a href="{{route('item.detail',$item->id)}}" class="item-image">
                         @if($item->is_sold)
                         <span class="label__sold-out">Sold</span>
                         @endif

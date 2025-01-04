@@ -23,6 +23,6 @@ class UserController extends Controller
         $profile = $request->all();
         User::find($request->id)->update($profile);
 
-        return redirect(route('index'))->with('success','プロフィールを設定しました');
+        return redirect(route('items.index'))->with('success', 'プロフィールを設定しました');
     }
 }

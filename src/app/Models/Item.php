@@ -7,6 +7,16 @@ use Illuminate\Support\Facades\Auth;
 
 class Item extends Model
 {
+    public function users()
+    {
+        $this->belongsTo(User::class);
+    }
+
+    public function comments()
+    {
+        $this->hasMany(Comment::class);
+    }
+
     public function scopeExceptCurrentUser($query)
     {
         if (Auth::check()) {
