@@ -69,12 +69,12 @@
     <header class="header">
         <div class="header__inner">
             <div class="logo">
-                <a href="{{route('index')}}">
+                <a href="{{route('items.index')}}">
                     <img src="{{ asset('icon/logo.svg') }}" alt="">
                 </a>
             </div>
             @if (!Route::is('register', 'login'))
-            <form action="{{route('index')}}" method="get" class="search-bar">
+            <form action="{{route('items.index')}}" method="get" class="search-bar">
                 <input name="serach" type="text" placeholder="なにをお探しですか？">
             </form>
             <div class="nav-menu">
