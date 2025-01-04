@@ -9,25 +9,39 @@ class Item extends Model
 {
     public function users()
     {
-        $this->belongsTo(User::class);
+        return  $this->belongsTo(User::class);
     }
 
     public function comments()
     {
-        $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class);
+    }
+
+    public function favorites()
+    {
+        return $this->hasMany(Favorite::class);
     }
 
     public function scopeExceptCurrentUser($query)
     {
         if (Auth::check()) {
-            $query->where('user_id', '!=', Auth::user()->id);
+            $query->where('user_id', '!=', Auth::id());
         }
     }
 
     public function scopeSearch($query, $search)
     {
-        if ($search) {
+        if (!empty($search)) {
             $query->where('item_name', 'like', '%' . $search . '%');
+        }
+    }
+
+    public function scopeMylist($query, $tab)
+    {
+        if ((!empty($tab))) {
+            return $query->whereHas('favorites', function ($query) {
+                $query->where('user_id', Auth::id());
+            });
         }
     }
 }
