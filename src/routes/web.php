@@ -12,7 +12,6 @@ Route::get('/item/{item}', [ItemController::class, 'detail'])->name('item.detail
 // 会員登録直後ユーザー設定ルーティング
 Route::middleware('auth')->group(function () {
     Route::post('/set/profile', [UserController::class, 'updateProfile'])->name('set.profile');
-    Route::post('/item/{item}', [ItemController::class, 'like'])->name('like');
 });
 
 // メール認証済みユーザールーティング
@@ -20,6 +19,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/mypage', [UserController::class, 'viewProfile'])->name('view.profile');
     Route::get('/mypage/profile', [UserController::class, 'editProfile'])->name('edit.profile');
     Route::post('/mypage/profile', [UserController::class, 'updateProfile'])->name('update.profile');
+    Route::post('/item/{item}', [ItemController::class, 'like'])->name('like');
+    Route::get('/purchase/{item}', [ItemController::class, 'purchase'])->name('purchase');
 });
 
 // メール認証ルーティング
