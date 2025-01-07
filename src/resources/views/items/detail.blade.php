@@ -1,12 +1,18 @@
+@php
+$categories=$item->categories;
+$comments=$item->comments;
+$favorites=$item->favorites;
+$item_name=$item->item_name
+@endphp
+
 @extends('layouts.app')
 
-@php
-@endphp
-@section('title', '商品一覧')
+@section('title', $item_name)
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/detail.css') }}">
 @endsection
+
 @section('content')
 <section class="detail">
     <div class="detail__inner block-center">
@@ -29,12 +35,30 @@
                     <span>￥</span>{{$item->price}} <span>(税込)</span>
                 </p>
                 <div class="info__likes-comments">
-                    <form action="{{route('like',$item->id)}}" method="post">
-                        @csrf
-                        <input type="hidden" name="item_id" value="{{$item->id}}">
-                        <button>like</button>
-                    </form>
-                    <p>comments</p>
+                    <table class="table__likes-comments">
+                        <tbody>
+                            <tr>
+                                <th>
+                                    <form action="{{route('like',$item->id)}}" method="post">
+                                        @csrf
+                                        <input type="hidden" name="item_id" value="{{$item->id}}">
+                                        <button>like</button>
+                                    </form>
+                                </th>
+                                <th>
+                                    <p>comments</p>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {{$favorites->count()}}
+                                </td>
+                                <td>
+                                    {{$comments->count()}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <a href="{{route('purchase',$item->id)}}" class="to-purchase block text-center no-decoration">購入手続きへ</a>
             </div>
@@ -44,21 +68,33 @@
                     {{$item->item_description}}
                 </p>
                 <h3 class="item-detail__title">商品の情報</h3>
-                <table class="item-condition">
+                <table class="item-detail__table">
                     <tbody>
                         <tr>
                             <th>カテゴリー</th>
-                            <td></td>
+                            <td>
+
+                                @foreach($categories as $category)
+                                <span class=category>
+                                    {{$category->category_name}}
+                                </span>
+                                @endforeach
+                            </td>
                         </tr>
                         <tr>
                             <th>商品の状態</th>
-                            <td></td>
+                            <td>{{$item->condition->condition}}</td>
                         </tr>
                     </tbody>
                 </table>
-                <h3 class="item-detail__title comment">コメント()</h3>
+                <h3 class="item-detail__title comment">コメント({{$comments->count()}})</h3>
+                @forelse($comments as $comment)
+                {{$comment->user_name}}
                 <!-- コメントユーザーの情報入れる
                 コメント本文入れる -->
+                @empty
+                <p>コメントはありません</p>
+                @endforelse
             </div>
             <div class="comment-form">
                 <p>商品へのコメント</p>

@@ -9,17 +9,28 @@ class Item extends Model
 {
     public function users()
     {
-        return  $this->belongsTo(User::class);
+        return $this->belongsTo(User::class);
     }
 
-    public function comments()
+    public function condition()
     {
-        return $this->hasMany(Comment::class);
+        return $this->belongsTo(Condition::class);
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
     }
 
     public function favorites()
     {
         return $this->hasMany(Favorite::class);
+    }
+
+    public function comments()
+    {
+        return $this->belongsToMany(User::class, 'comments')
+            ->withPivot('comment');
     }
 
     public function scopeExceptCurrentUser($query)
