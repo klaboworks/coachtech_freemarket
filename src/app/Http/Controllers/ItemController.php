@@ -11,7 +11,8 @@ class ItemController extends Controller
 {
     public function index(Request $request)
     {
-        $items = Item::exceptCurrentUser()->Search($request->serach)->get();
+        session()->put('search_query', $request->search);
+        $items = Item::Search($request->search)->ExceptCurrentUser()->Mylist($request->tab)->get();
         return view('items.index', compact('items'));
     }
 

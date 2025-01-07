@@ -11,8 +11,14 @@
     <div class="index__inner">
         <div class="index__heading">
             <div class="heading-menu">
-                <a href="">おすすめ</a>
-                <a href="">マイリスト</a>
+                <a href="{{route('items.index')}}">おすすめ</a>
+                <form action="{{route('items.index')}}">
+                    <input type="hidden" name="tab" value="mylist">
+                    @if(session('search_query'))
+                    <input type="hidden" name="search" value="{{session('search_query')}}">
+                    @endif
+                    <button>マイリスト</button>
+                </form>
             </div>
         </div>
         <div class="index__body">

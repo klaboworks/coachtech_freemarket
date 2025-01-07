@@ -36,14 +36,23 @@ class Item extends Model
     public function scopeExceptCurrentUser($query)
     {
         if (Auth::check()) {
-            $query->where('user_id', '!=', Auth::user()->id);
+            $query->where('user_id', '!=', Auth::id());
         }
     }
 
     public function scopeSearch($query, $search)
     {
-        if ($search) {
+        if (!empty($search)) {
             $query->where('item_name', 'like', '%' . $search . '%');
+        }
+    }
+
+    public function scopeMylist($query, $tab)
+    {
+        if ((!empty($tab))) {
+            return $query->whereHas('favorites', function ($query) {
+                $query->where('user_id', Auth::id());
+            });
         }
     }
 }

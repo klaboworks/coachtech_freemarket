@@ -75,7 +75,7 @@
             </div>
             @if (!Route::is('register', 'login'))
             <form action="{{route('items.index')}}" method="get" class="search-bar">
-                <input name="serach" type="text" placeholder="なにをお探しですか？">
+                <input name="search" type="text" placeholder="なにをお探しですか？" value="{{old('search',session('search_query'))}}">
             </form>
             <div class="nav-menu">
                 @if (!Auth::check())
