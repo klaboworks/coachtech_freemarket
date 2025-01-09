@@ -19,6 +19,9 @@ $item_name=$item->item_name
         <!-- コンテンツ左側 -->
         <div class="content-left">
             <div class="item-image">
+                @if($item->is_sold)
+                <span class="label__sold-out">Sold</span>
+                @endif
                 <img src="../../../{{$item->item_image}}" alt="item_image">
             </div>
         </div>
@@ -26,7 +29,7 @@ $item_name=$item->item_name
         <div class="content-right">
             <div class="item-info">
                 <h2 class="item-name page-title">
-                    {{$item->item_name}}
+                    {{$item_name}}
                 </h2>
                 <small class="brand-name block">
                     {{$item->brand_name ? $item->brand_name : 'no brand'}}
@@ -62,18 +65,18 @@ $item_name=$item->item_name
                 </div>
                 <a href="{{route('purchase',$item->id)}}" class="to-purchase block text-center no-decoration">購入手続きへ</a>
             </div>
+
             <div class="item-detail">
                 <h3 class="item-detail__title">商品説明</h3>
                 <p class="item-description">
                     {{$item->item_description}}
                 </p>
                 <h3 class="item-detail__title">商品の情報</h3>
-                <table class="item-detail__table">
+                <table class="table__item-detail">
                     <tbody>
                         <tr>
                             <th>カテゴリー</th>
                             <td>
-
                                 @foreach($categories as $category)
                                 <span class=category>
                                     {{$category->category_name}}
@@ -88,18 +91,31 @@ $item_name=$item->item_name
                     </tbody>
                 </table>
                 <h3 class="item-detail__title comment">コメント({{$comments->count()}})</h3>
-                @forelse($comments as $comment)
-                {{$comment->user_name}}
-                <!-- コメントユーザーの情報入れる
-                コメント本文入れる -->
-                @empty
-                <p>コメントはありません</p>
-                @endforelse
+                <div class="user-comments">
+                    @forelse($comments as $comment)
+                    <div class="user-info">
+                        <img src="{{$comment->avatar}}" alt="">
+                        <p>{{$comment->name}}</p>
+                    </div>
+                    <p class="comment-description">{{$comment->pivot->comment}}</p>
+                    @empty
+                    <p>コメントはありません</p>
+                    @endforelse
+                </div>
             </div>
+
             <div class="comment-form">
                 <p>商品へのコメント</p>
-                <form action="">
-                    <textarea name="" id=""></textarea>
+                <form action="{{route('comment.create',$item->id)}}" method="post">
+                    @csrf
+                    @if(Auth::check())
+                    <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+                    @endif
+                    <input type="hidden" name="item_id" value="{{$item->id}}">
+                    <textarea name="comment"></textarea>
+                    @error('comment')
+                    <small class="error-message">{{$message}}</small>
+                    @enderror
                     <button type="submit" class="send-comment">コメントを送信する</button>
                 </form>
             </div>
