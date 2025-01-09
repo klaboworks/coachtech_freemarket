@@ -88,7 +88,7 @@
                 </form>
                 @endif
                 <a href="/mypage" class="mypage">マイページ</a>
-                <a href="/sell" class="list-items">出品</a>
+                <a href="{{route('sell.index')}}" class="list-items">出品</a>
             </div>
             @endif
         </div>
