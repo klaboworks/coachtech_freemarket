@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -19,6 +20,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/mypage', [UserController::class, 'index'])->name('view.profile');
     Route::post('/item/{item}', [ItemController::class, 'like'])->name('like');
+    Route::post('/item{item}/comment', [CommentController::class, 'create'])->name('comment.create');
     Route::get('/purchase/{item}', [ItemController::class, 'purchase'])->name('purchase');
 });
 
