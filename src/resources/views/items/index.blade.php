@@ -45,7 +45,6 @@
                     <h2 class="item-name">{{$item->item_name}}</h2>
                 </div>
                 @endforeach
-
             </div>
         </div>
     </div>

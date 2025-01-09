@@ -2,11 +2,14 @@
 
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\SellController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+
+// ゲストルーティング
 Route::get('/', [ItemController::class, 'index'])->name('items.index');
 Route::get('/item/{item}', [ItemController::class, 'detail'])->name('item.detail');
 
@@ -22,6 +25,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/item/{item}', [ItemController::class, 'like'])->name('like');
     Route::post('/item{item}/comment', [CommentController::class, 'create'])->name('comment.create');
     Route::get('/purchase/{item}', [ItemController::class, 'purchase'])->name('purchase');
+    Route::get('/sell', [SellController::class, 'index'])->name('sell.index');
+    Route::post('/sell', [SellController::class, 'create'])->name('sell.create');
 });
 
 // メール認証ルーティング
