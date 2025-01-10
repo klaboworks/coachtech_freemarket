@@ -38,18 +38,20 @@ $item_name=$item->item_name
                     <span>￥</span>{{$item->price}} <span>(税込)</span>
                 </p>
                 <div class="info__likes-comments">
-                    <table class="table__likes-comments">
+                    <table class="table__likes-comments text-center">
                         <tbody>
                             <tr>
                                 <th>
                                     <form action="{{route('like',$item->id)}}" method="post">
                                         @csrf
                                         <input type="hidden" name="item_id" value="{{$item->id}}">
-                                        <button>like</button>
+                                        <button class="favorite-button"><img src="../../../images/icons/star.png" alt=""></button>
                                     </form>
                                 </th>
                                 <th>
-                                    <p>comments</p>
+                                    <div class="comment-icon">
+                                        <img src="../../../images/icons/comment.png" alt="">
+                                    </div>
                                 </th>
                             </tr>
                             <tr>
@@ -94,7 +96,13 @@ $item_name=$item->item_name
                 <div class="user-comments">
                     @forelse($comments as $comment)
                     <div class="user-info">
-                        <img src="{{$comment->avatar}}" alt="">
+                        <div class="user-avatar">
+                            @if($comment->avatar)
+                            <img src="{{ $comment->avatar }}" alt="">
+                            @else
+                            <img src="../../../images/icons/no_avatar.webp" alt="item_image">
+                            @endif
+                        </div>
                         <p>{{$comment->name}}</p>
                     </div>
                     <p class="comment-description">{{$comment->pivot->comment}}</p>

@@ -68,6 +68,25 @@
     display: flex;
 }
 
+.table__likes-comments > tbody > tr > th {
+    width: 56px;
+}
+
+.favorite-button,
+.comment-icon {
+    padding: 0;
+    border: none;
+    background: transparent;
+    width: 100%;
+    > img {
+        width: 50%;
+        display: inline-block;
+        margin: 0 auto;
+        height: auto;
+        object-fit: contain;
+    }
+}
+
 .to-purchase,
 .send-comment {
     width: 100%;
@@ -125,14 +144,30 @@
 
 .user-info {
     display: flex;
+    align-items: center;
+    gap: 16px;
     margin-bottom: 8px;
+}
+
+.user-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+
+    > img {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+    }
 }
 
 .comment-description {
     padding: 12px;
     border-radius: 4px;
     margin-bottom: 12px;
-    background-color: #E5E5E5;
+    background-color: #e5e5e5;
     word-break: break-all;
 }
 
