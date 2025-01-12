@@ -25,16 +25,23 @@
     }
 }
 
+.tab__recommend,
+.tab__mylist{
+    color: black;
+}
+
 .items-panel {
     width: calc(100% - 40px);
     margin: 80px auto;
     display: grid;
     column-gap: 20px;
     row-gap: 32px;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-columns: repeat(5, 1fr);
 
     @media (max-width: 768px) {
-        width: calc(100% - 40px);
+        grid-template-columns: repeat(4, 1fr);
+    }
+    @media (max-width: 500px) {
         column-gap: 8px;
         row-gap: 24px;
         grid-template-columns: repeat(3, 1fr);
