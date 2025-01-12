@@ -27,6 +27,16 @@ class Item extends Model
         return $this->hasMany(Favorite::class);
     }
 
+    public function likeStatus($user_id)
+    {
+        $liked = Favorite::where('user_id', $user_id)->where('item_id', $this->id)->first();
+
+        if (!$liked) {
+            return asset('images/icons/like_inactive.png');
+        }
+        return asset('images/icons/like_active.png');
+    }
+
     public function comments()
     {
         return $this->belongsToMany(User::class, 'comments')

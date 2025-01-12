@@ -14,9 +14,6 @@ class CategoryItemTableSeeder extends Seeder
      */
     public function run(): void
     {
-        // $param = ['category_id' => 1, 'item_id' => 1];
-        // DB::table('categories_items')->insert($param);
-
         $columns = collect(['item_id', 'category_id']);
         $values = collect([
             [1, 1],
