@@ -18,7 +18,6 @@
 .content-left,
 .content-right {
     flex: 1;
-    max-width: 50%;
 }
 
 .item-image {
