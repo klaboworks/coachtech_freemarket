@@ -12,9 +12,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->count(3)->create([
+        $users = User::factory()->count(3)->create([
             'password' => 'pass'
         ]);
+        $users[0]->avatar = 'user1.png';
+        $users[0]->save();
 
         $this->call([
             ConditionsTableSeeder::class,

@@ -23,7 +23,7 @@ class ItemController extends Controller
 
     public function like(Request $request)
     {
-        $like = Favorite::where('user_id', Auth::id())->where('Item_id', $request->item_id)->latest()->first();;
+        $like = Favorite::where('user_id', Auth::id())->where('item_id', $request->item_id)->latest()->first();;
 
         if ($like) {
             Favorite::find($like)->first()->delete();

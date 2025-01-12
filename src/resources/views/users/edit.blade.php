@@ -39,15 +39,15 @@ $user=Auth::user();
             </div>
             <div class="input-unit">
                 <label for="postal_code">郵便番号</label>
-                <input type="text" name="postal_code" value="{{old('postal_code')}}">
+                <input type="text" name="postal_code" value="{{$user->postal_code}}">
             </div>
             <div class="input-unit">
                 <label for="address1">住所</label>
-                <input type="text" name="address1" value="{{old('address1')}}">
+                <input type="text" name="address1" value="{{$user->address1}}">
             </div>
             <div class="input-unit">
                 <label for="address2">建物名</label>
-                <input type="text" name="address2" value="{{old('address2')}}">
+                <input type="text" name="address2" value="{{$user->address2}}">
             </div>
             <button type="submit" class="update-button">更新する</button>
         </form>

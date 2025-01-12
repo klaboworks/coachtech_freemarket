@@ -60,4 +60,19 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         $this->hasMany(Comment::class);
     }
+
+    public function getAvatarPath($avatarPath)
+    {
+        if (!$avatarPath) {
+            return asset('images/avatar/no_avatar.webp');
+        }
+
+        if (file_exists(public_path('images/avatar/' . $avatarPath))) {
+            return asset('images/avatar/' . $avatarPath);
+        }
+
+        if (file_exists(storage_path('app/public/' . $avatarPath))) {
+            return asset('storage/' . $avatarPath);
+        }
+    }
 }

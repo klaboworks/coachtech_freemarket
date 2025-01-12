@@ -22,7 +22,7 @@ $item_name=$item->item_name
                 @if($item->is_sold)
                 <span class="label__sold-out">Sold</span>
                 @endif
-                <img src="../../../{{$item->item_image}}" alt="item_image">
+                <img src="{{asset($item->item_image)}}" alt="item_image">
             </div>
         </div>
         <!-- コンテンツ右側 -->
@@ -45,12 +45,12 @@ $item_name=$item->item_name
                                     <form action="{{route('like',$item->id)}}" method="post">
                                         @csrf
                                         <input type="hidden" name="item_id" value="{{$item->id}}">
-                                        <button class="favorite-button"><img src="../../../images/icons/star.png" alt=""></button>
+                                        <button class="favorite-button"><img src="{{ $item->likeStatus(Auth::id()) }}" alt=""></button>
                                     </form>
                                 </th>
                                 <th>
                                     <div class="comment-icon">
-                                        <img src="../../../images/icons/comment.png" alt="">
+                                        <img src="{{ asset('images/icons/comment.png') }}" alt="">
                                     </div>
                                 </th>
                             </tr>
@@ -97,11 +97,7 @@ $item_name=$item->item_name
                     @forelse($comments as $comment)
                     <div class="user-info">
                         <div class="user-avatar">
-                            @if($comment->avatar)
-                            <img src="{{ $comment->avatar }}" alt="">
-                            @else
-                            <img src="../../../images/icons/no_avatar.webp" alt="item_image">
-                            @endif
+                            <img src="{{ $comment->getAvatarPath($comment->avatar) }}" alt="">
                         </div>
                         <p>{{$comment->name}}</p>
                     </div>
