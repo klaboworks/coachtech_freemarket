@@ -17,9 +17,9 @@ $user=Auth::user();
         <form action="{{route('update.profile')}}" method="post" enctype="multipart/form-data" class="edit-form">
             @csrf
             <input type="hidden" name="id" value="{{$user->id}}">
-            <div class="input-unit__avatar">
+            <div class="input-unit__avatar flex-row">
                 <div class="avatar">
-                    <img src="" alt="">
+                    <img src="{{Auth::user()->getAvatarPath(Auth::user()->avatar)}}" alt="">
                 </div>
                 <div class="select-avatar">
                     <label class="btn__avatar-select">画像を選択する

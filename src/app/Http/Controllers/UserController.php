@@ -4,14 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Item;
 use App\Http\Requests\ProfileRequest;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('users.mypage');
+        $items = Item::Mypage($request->tab)->get();
+        return view('users.mypage', compact('items'));
     }
 
     public function edit()
@@ -21,12 +24,13 @@ class UserController extends Controller
 
     public function update(ProfileRequest $request)
     {
+        $existImage = Auth::user()->avatar;
         $image = $request->file('avatar');
 
         if ($image) {
             $path = Storage::put('', $image);
         } else {
-            $path = null;
+            $path = $existImage;
         }
 
         User::find($request->id)->update([

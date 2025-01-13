@@ -73,7 +73,7 @@
 .humburger-menu__elements {
     position: fixed;
     inset: 0;
-    padding: 15vh 15vw 0;
+    padding: 30vh 15vw 0;
     transform: translateX(100%);
     gap: 40px;
     background-color: #000000;
@@ -110,9 +110,11 @@
 }
 
 .humburger__list-items {
+    display: inline-block;
+    width: 80px;
+    height: 32px;
+    line-height: 32px;
     background-color: white;
-    padding: 2px 16px 0;
     color: black;
-    text-decoration: none;
     border-radius: 2px;
 }
