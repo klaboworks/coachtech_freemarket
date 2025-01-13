@@ -179,3 +179,8 @@
         resize: vertical;
     }
 }
+
+.sold-out {
+    pointer-events: none;
+    opacity: 0.4;
+}

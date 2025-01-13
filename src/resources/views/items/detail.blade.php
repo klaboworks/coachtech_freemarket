@@ -65,7 +65,11 @@ $item_name=$item->item_name
                         </tbody>
                     </table>
                 </div>
+                @if($item->is_sold)
+                <a href="{{route('purchase',$item->id)}}" class="to-purchase block text-center no-decoration sold-out">売り切れ</a>
+                @else
                 <a href="{{route('purchase',$item->id)}}" class="to-purchase block text-center no-decoration">購入手続きへ</a>
+                @endif
             </div>
 
             <div class="item-detail">
