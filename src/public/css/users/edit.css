@@ -1,15 +1,12 @@
 .edit__inner {
+    width: calc(100% - 80px);
     max-width: 480px;
-    margin: 10vh auto 0;
+    margin: 8vh auto;
 }
 
 .edit-title {
     text-align: center;
     font-size: 24px;
-}
-
-.input-panel {
-    margin: 40px 0;
 }
 
 .input-unit {
@@ -23,15 +20,10 @@
 }
 
 .input-unit__avatar {
-    display: flex;
-    gap: 40px;
+    gap: 20px;
     align-items: center;
     height: 120px;
-    margin: 56px 0;
-
-    .select-avatar {
-        width: calc(100% - 160px);
-    }
+    margin: 40px 0;
 
     .btn__avatar-select {
         padding: 6px 16px;
@@ -43,8 +35,18 @@
     .avatar {
         width: 120px;
         height: 120px;
-        background-color: #c2c2c2;
         border-radius: 50%;
+        overflow: hidden;
+
+        > img {
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+        }
+    }
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+        height: auto;
     }
 }
 

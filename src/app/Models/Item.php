@@ -60,9 +60,22 @@ class Item extends Model
     public function scopeMylist($query, $tab)
     {
         if ((!empty($tab))) {
-            return $query->whereHas('favorites', function ($query) {
+            $query->whereHas('favorites', function ($query) {
                 $query->where('user_id', Auth::id());
             });
+        }
+    }
+
+    public function scopeMypage($query, $tab)
+    {
+        if (!empty($tab)) {
+            if ($tab == 'sell') {
+                $query->where('user_id', '=', Auth::id());
+            } elseif ($tab == 'buy') {
+                $query->where('user_id', '!=', Auth::id());
+            }
+        } else {
+            $query->where('user_id', '=', Auth::id());
         }
     }
 }

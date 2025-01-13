@@ -36,3 +36,65 @@
 .error-message {
     color: tomato;
 }
+
+.items-panel {
+    width: calc(100% - 40px);
+    margin: 80px auto;
+    display: grid;
+    column-gap: 20px;
+    row-gap: 32px;
+    grid-template-columns: repeat(5, 1fr);
+
+    @media (max-width: 768px) {
+        grid-template-columns: repeat(4, 1fr);
+        margin: 8vw auto;
+    }
+
+    @media (max-width: 500px) {
+        margin: 6vw auto;
+        column-gap: 8px;
+        row-gap: 24px;
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.item-unit {
+    max-width: 300px;
+    overflow: hidden;
+}
+
+.item-image {
+    position: relative;
+    > img {
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+    }
+}
+
+.item-name {
+    margin-top: 8px;
+    font-size: 20px;
+    font-weight: normal;
+
+    @media (max-width: 768px) {
+        font-size: 2.4vw;
+    }
+}
+
+.label__sold-out {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: white;
+    font-weight: bold;
+    background-color: red;
+    padding: 24px 40px 4px;
+    transform: translate(40px, -8px) rotate(45deg);
+
+    @media (max-width: 500px) {
+        font-weight: normal;
+        font-size: 12px;
+        padding: 16px 24px 0;
+        transform: translate(28px, -8px) rotate(45deg);
+    }
+}

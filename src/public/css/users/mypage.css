@@ -1,0 +1,89 @@
+.mypage__heading,
+.mypage__body {
+    width: calc(100% - 40px);
+    max-width: 1440px;
+
+    @media (max-width: 400px) {
+        width: calc(100% - 10px);
+    }
+}
+
+.mypage__heading {
+    padding-top: 48px;
+
+    @media (max-width: 768px) {
+        padding-top: 6vw;
+    }
+}
+
+.heading__user-info {
+    gap: 48px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 80px;
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+        gap: 2vw;
+        margin-bottom: 8vw;
+    }
+}
+
+.user-icon,
+.user-name,
+.edit-profile {
+    flex: 1;
+}
+
+.image-frame {
+    width: 160px;
+    height: 160px;
+    overflow: hidden;
+    border-radius: 50%;
+    margin-left: auto;
+
+    > img {
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+    }
+
+    @media (max-width: 600px) {
+        width: 32vw;
+        height: 32vw;
+    }
+}
+
+.user-name {
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.edit-profile > a {
+    font-weight: bold;
+    padding: 8px 24px;
+    border: solid 1px #e96057;
+    border-radius: 4px;
+    color: #e96057;
+}
+
+.heading__tab {
+    padding-left: 136px;
+    margin-bottom: 24px;
+    gap: 48px;
+
+    @media (max-width: 768px) {
+        justify-content: center;
+        padding-left: 0;
+        gap: 24px;
+    }
+
+    > form > button {
+        background: none;
+        border: none;
+    }
+}
+
+.tab__sell,
+.tab__buy {
+    color: black;
+}
