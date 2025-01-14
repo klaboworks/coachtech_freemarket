@@ -6,6 +6,10 @@
 <link rel="stylesheet" href="{{asset('css/users/mypage.css')}}">
 @endsection
 
+@section('script')
+<script src="{{asset('js/mypage.js')}}" defer></script>
+@endsection
+
 @section('content')
 <div class="mypage">
     <div class="mypage__inner">

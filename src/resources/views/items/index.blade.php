@@ -8,6 +8,7 @@
 
 @section('script')
 <script src="{{ asset('js/user.js') }}" defer></script>
+<script src="{{ asset('js/index.js') }}" defer></script>
 @endsection
 
 @section('content')
@@ -34,6 +35,7 @@
                 </form>
             </div>
         </div>
+
         <div class="index__body">
             <div class="items-panel">
                 @foreach($items as $item)

@@ -28,7 +28,7 @@ $item_name=$item->item_name
         <!-- コンテンツ右側 -->
         <div class="content-right">
             <div class="item-info">
-                <h2 class="item-name page-title">
+                <h2 class="page-title">
                     {{$item_name}}
                 </h2>
                 <small class="brand-name block">
