@@ -21,6 +21,9 @@
         <form action="{{route('sell.create')}}" method="post" enctype="multipart/form-data" class="sell-form flex-column">
             @csrf
 
+            <!-- バリデーションエラー時カテゴリーラベル色変え保持用input -->
+            <input type="hidden" id="has-errors" value="{{ session('errors') ? 'true' : 'false' }}">
+
             <input type="hidden" name="id" value="{{$user->id}}">
             <div class="input-unit flex-column">
                 <label for="item_image" class="input-label">商品画像</label>
@@ -41,7 +44,7 @@
                     @foreach($categories as $category)
                     <label class="category-selection__items category-label">
                         {{$category->category_name}}
-                        <input type="checkbox" name="categories[]" style="display:none;" class="category-picker" value="{{$category->id}}" {{ old('categories') && in_array($category->id, old('categories')) ? 'checked' : '' }}>
+                        <input type="checkbox" name="categories[]" id="{{$category->id}}" style="display:none;" class="category-picker" value="{{$category->id}}" {{ old('categories') && in_array($category->id, old('categories')) ? 'checked' : '' }}>
                     </label>
                     @endforeach
                 </div>

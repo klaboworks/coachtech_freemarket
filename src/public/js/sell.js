@@ -8,4 +8,13 @@
             categoryCheck.parentNode.classList.toggle("active");
         });
     });
+
+    const hasErrors = document.getElementById("has-errors").value;
+    if (hasErrors === "true") {
+        categoryChecks.forEach(function (categoryCheck) {
+            if (categoryCheck.checked) {
+                categoryCheck.parentNode.classList.add("active");
+            }
+        });
+    }
 }
