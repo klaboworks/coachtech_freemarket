@@ -39,19 +39,25 @@
                 <h4 class="item-detail__category title-medium">カテゴリー</h4>
                 <div class="category-selection">
                     @foreach($categories as $category)
-                    <span class="category-selection__items category-picker">
+                    <label class="category-selection__items category-label">
                         {{$category->category_name}}
-                    </span>
+                        <input type="checkbox" name="categories[]" style="display:none;" class="category-picker" value="{{$category->id}}" {{ old('categories') && in_array($category->id, old('categories')) ? 'checked' : '' }}>
+                    </label>
                     @endforeach
                 </div>
+                @error('categories')
+                <small class="error-message">
+                    {{ $message }}
+                </small>
+                @enderror
             </div>
 
             <div class="input-unit flex-column">
-                <label for="condition" class="input-label">商品の状態</label>
-                <select name="condition">
+                <label for="condition_id" class="input-label">商品の状態</label>
+                <select name="condition_id">
                     <option value="" selected disabled>選択してください</option>
                     @foreach($conditions as $condition)
-                    <option value="{{$condition->id}}">{{$condition->condition}}</option>
+                    <option value="{{$condition->id}}" {{ old('condition_id') == $condition->id ? 'selected' : '' }}>{{$condition->condition}}</option>
                     @endforeach
                 </select>
                 @error('condition_id')

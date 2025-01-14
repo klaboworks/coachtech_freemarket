@@ -22,6 +22,7 @@ class SellController extends Controller
 
     public function create(ExhibitionRequest $request)
     {
+        dd($request);
         Item::create($request->all());
         return redirect()->back();
     }
