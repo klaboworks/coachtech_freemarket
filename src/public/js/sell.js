@@ -1,12 +1,20 @@
 "use-strict";
 {
     // 出品画面カテゴリー選択
-    const categoryButtons = document.querySelectorAll(".category-picker");
+    const categoryChecks = document.querySelectorAll("input[type=checkbox]");
 
-    categoryButtons.forEach(function (categoryButton) {
-        categoryButton.addEventListener("click", () => {
-            console.log("clicked");
-            categoryButton.classList.toggle("active");
+    categoryChecks.forEach(function (categoryCheck) {
+        categoryCheck.addEventListener("change", () => {
+            categoryCheck.parentNode.classList.toggle("active");
         });
     });
+
+    const hasErrors = document.getElementById("has-errors").value;
+    if (hasErrors === "true") {
+        categoryChecks.forEach(function (categoryCheck) {
+            if (categoryCheck.checked) {
+                categoryCheck.parentNode.classList.add("active");
+            }
+        });
+    }
 }
