@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{ asset('css/header.css') }}">
     <link rel="stylesheet" href="{{ asset('css/common.css') }}">
     @yield('css')
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/header.js') }}" defer></script>
     @yield('script')
     <title>coachtehフリマ | @yield('title')</title>
 </head>
