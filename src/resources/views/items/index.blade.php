@@ -7,7 +7,6 @@
 @endsection
 
 @section('script')
-<script src="{{ asset('js/user.js') }}" defer></script>
 <script src="{{ asset('js/index.js') }}" defer></script>
 @endsection
 
@@ -44,7 +43,7 @@
                         @if($item->is_sold)
                         <span class="label__sold-out">Sold</span>
                         @endif
-                        <img src="{{$item->item_image}}" alt="">
+                        <img src="{{$item->getImagePath($item->item_image)}}" alt="">
                     </a>
                     <h2 class="item-name">{{$item->item_name}}</h2>
                 </div>

@@ -7,6 +7,17 @@ use Illuminate\Support\Facades\Auth;
 
 class Item extends Model
 {
+    protected $fillable = [
+        'condition_id',
+        'user_id',
+        'item_image',
+        'item_name',
+        'brand_name',
+        'price',
+        'item_description',
+        'is_sold'
+    ];
+
     public function users()
     {
         return $this->belongsTo(User::class);
@@ -19,7 +30,7 @@ class Item extends Model
 
     public function categories()
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Category::class)->withTimestamps();
     }
 
     public function favorites()
@@ -41,6 +52,21 @@ class Item extends Model
     {
         return $this->belongsToMany(User::class, 'comments')
             ->withPivot('comment');
+    }
+
+    public function getImagePath($imagePath)
+    {
+        if (!$imagePath) {
+            return asset('images/avatar/no_avatar.webp');
+        }
+
+        if (file_exists(public_path('images/items/' . $imagePath))) {
+            return asset('images/items/' . $imagePath);
+        }
+
+        if (file_exists(storage_path('app/public/' . $imagePath))) {
+            return asset('storage/' . $imagePath);
+        }
     }
 
     public function scopeExceptCurrentUser($query)

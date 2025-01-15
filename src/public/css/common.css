@@ -99,3 +99,14 @@
         transform: translate(28px, -8px) rotate(45deg);
     }
 }
+
+.alert-success {
+    width: 100%;
+    padding: 40px 0;
+    position: fixed;
+    color: white;
+    background-color: #e96057;
+    top: 0;
+    left: 0;
+    z-index: 1100;
+}
