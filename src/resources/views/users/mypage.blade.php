@@ -7,11 +7,19 @@
 @endsection
 
 @section('script')
-<script src="{{asset('js/mypage.js')}}" defer></script>
+<script src="{{ asset('js/user.js') }}" defer></script>
 @endsection
 
 @section('content')
-<div class="mypage">
+<section class="mypage">
+
+    <!-- 出品時フラッシュメッセージ -->
+    @if (session('success'))
+    <div class="alert-success text-center">
+        <p>{{ session('success') }}</p>
+    </div>
+    @endif
+
     <div class="mypage__inner">
         <div class="mypage__heading block-center">
             <div class="heading__user-info flex-row block-center">
@@ -28,13 +36,13 @@
                 </div>
             </div>
             <div class="heading__tab flex-row block-center">
-                <form action="{{route('view.profile')}}" method="get">
+                <form action="{{route('mypage')}}" method="get">
                     <input type="hidden" name="tab" value="sell">
                     <button>
                         <p class="tab__sell">出品した商品</p>
                     </button>
                 </form>
-                <form action="{{route('view.profile')}}" method="get">
+                <form action="{{route('mypage')}}" method="get">
                     <input type="hidden" name="tab" value="buy">
                     <button>
                         <p class="tab__buy">購入した商品</p>
@@ -51,7 +59,7 @@
                         @if($item->is_sold)
                         <span class="label__sold-out">Sold</span>
                         @endif
-                        <img src="{{$item->item_image}}" alt="">
+                        <img src="{{$item->getImagePath($item->item_image)}}" alt="">
                     </a>
                     <h2 class="item-name">{{$item->item_name}}</h2>
                 </div>
@@ -59,5 +67,5 @@
             </div>
         </div>
     </div>
-</div>
+</section>
 @endsection

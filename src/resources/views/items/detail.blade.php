@@ -22,7 +22,7 @@ $item_name=$item->item_name
                 @if($item->is_sold)
                 <span class="label__sold-out">Sold</span>
                 @endif
-                <img src="{{asset($item->item_image)}}" alt="item_image">
+                <img src="{{$item->getImagePAth($item->item_image)}}" alt="item_image">
             </div>
         </div>
         <!-- コンテンツ右側 -->

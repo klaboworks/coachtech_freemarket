@@ -21,7 +21,7 @@ Route::middleware('auth')->group(function () {
 
 // メール認証済みユーザールーティング
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/mypage', [UserController::class, 'index'])->name('view.profile');
+    Route::get('/mypage', [UserController::class, 'index'])->name('mypage');
     Route::post('/item/{item}', [ItemController::class, 'like'])->name('like');
     Route::post('/item{item}/comment', [CommentController::class, 'create'])->name('comment.create');
     Route::get('/purchase/{item}', [ItemController::class, 'purchase'])->name('purchase');

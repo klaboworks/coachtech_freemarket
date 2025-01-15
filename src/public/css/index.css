@@ -29,15 +29,3 @@
 .tab__mylist{
     color: black;
 }
-
-.alert-success {
-    width: 100%;
-    padding: 40px 0;
-    text-align: center;
-    position: fixed;
-    color: white;
-    background-color: #e96057;
-    top: 0;
-    left: 0;
-    z-index: 1100;
-}
