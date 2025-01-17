@@ -65,10 +65,12 @@ $item_name=$item->item_name
                         </tbody>
                     </table>
                 </div>
-                @if($item->is_sold)
-                <a href="{{route('purchase',$item->id)}}" class="to-purchase block text-center no-decoration sold-out">売り切れ</a>
+                @if($item->user_id == Auth::id())
+                <p class="listing-item block text-center">出品している商品です</p>
+                @elseif($item->is_sold)
+                <p class="to-purchase block text-center sold-out">売り切れ</p>
                 @else
-                <a href="{{route('purchase',$item->id)}}" class="to-purchase block text-center no-decoration">購入手続きへ</a>
+                <a href="{{route('purchase.create',$item->id)}}" class="to-purchase block text-center no-decoration">購入手続きへ</a>
                 @endif
             </div>
 
