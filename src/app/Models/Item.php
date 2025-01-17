@@ -54,6 +54,13 @@ class Item extends Model
             ->withPivot('comment');
     }
 
+
+    public function purchases()
+    {
+        return $this->belongsToMany(User::class, 'purchases');
+    }
+
+
     public function getImagePath($imagePath)
     {
         if (!$imagePath) {
@@ -98,7 +105,9 @@ class Item extends Model
             if ($tab == 'sell') {
                 $query->where('user_id', '=', Auth::id());
             } elseif ($tab == 'buy') {
-                $query->where('user_id', '!=', Auth::id());
+                $query->whereHas('purchases', function ($query) {
+                    $query->where('user_id', Auth::id());
+                });
             }
         } else {
             $query->where('user_id', '=', Auth::id());
