@@ -51,21 +51,26 @@
                 <div class="shipping-address">
                     <div class="address-heading flex-row">
                         <p class="address-label">配送先</p>
-                        <a href="" class="change-address no-decoration">変更する</a>
+                        <a href="{{ route('purchase.edit.address',$item->id) }}" class="change-address no-decoration">変更する</a>
                     </div>
-                    <p>〒 <input type="text" name="postal_code" readonly value="{{ Auth::user()->postal_code }}"></p>
+                    <p>〒 <input type="text" name="postal_code" readonly value="{{ old('postal_code') ? old('postal_code') : Auth::user()->postal_code }}"></p>
                     @error('postal_code')
                     <small class="error-message">
                         {{ $message }}
                     </small>
                     @enderror
-                    <p><input type="text" name="address1" readonly value="{{ Auth::user()->address1 }}"></p>
+                    <p><input type="text" name="address1" readonly value="{{ old('address1') ? old('address1') : Auth::user()->address1 }}"></p>
                     @error('address1')
                     <small class="error-message">
                         {{ $message }}
                     </small>
                     @enderror
-                    <p><input type="text" name="address2" readonly value="{{ Auth::user()->address2 }}"></p>
+                    <p><input type="text" name="address2" readonly value="{{ old('address2') ? old('address2') : Auth::user()->address2 }}"></p>
+                    @error('address2')
+                    <small class="error-message">
+                        {{ $message }}
+                    </small>
+                    @enderror
                 </div>
             </div>
             <div class="content-right">
