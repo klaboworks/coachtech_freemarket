@@ -32,9 +32,4 @@ class ItemController extends Controller
         }
         return redirect()->back();
     }
-
-    public function purchase(Item $item)
-    {
-        return view('items.purchase', ['item' => $item]);
-    }
 }
