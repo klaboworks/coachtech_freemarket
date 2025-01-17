@@ -25,7 +25,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/mypage', [UserController::class, 'index'])->name('mypage');
     Route::post('/item/{item}', [ItemController::class, 'like'])->name('like');
     Route::post('/item{item}/comment', [CommentController::class, 'create'])->name('comment.create');
-    Route::get('/purchase/{item}', [PurchaseController::class, 'create'])->name('purchase.create');
+    Route::get('/purchase/{item}', [PurchaseController::class, 'create'])->name('purchase.create')->middleware('web');
     Route::post('/purchase/{item}', [PurchaseController::class, 'store'])->name('purchase.store');
     Route::get('/sell', [SellController::class, 'index'])->name('sell.index');
     Route::post('/sell', [SellController::class, 'create'])->name('sell.create');

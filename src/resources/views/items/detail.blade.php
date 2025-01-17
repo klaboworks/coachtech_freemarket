@@ -65,12 +65,15 @@ $item_name=$item->item_name
                         </tbody>
                     </table>
                 </div>
-                @if($item->user_id == Auth::id())
-                <p class="listing-item block text-center">出品している商品です</p>
-                @elseif($item->is_sold)
+                @if($item->user_id == Auth::id() || $item->is_sold)
+                <p class="to-purchase block text-center sold-out">購入できません</p>
                 <p class="to-purchase block text-center sold-out">売り切れ</p>
                 @else
-                <a href="{{route('purchase.create',$item->id)}}" class="to-purchase block text-center no-decoration">購入手続きへ</a>
+                <a href="{{ route('purchase.create',$item->id) }}" onclick="event.target.form.submit();" class="to-purchase block text-center no-decoration">購入手続きへ</a>
+                <form name="purchaseForm" action="{{ route('purchase.create',$item->id) }}" method="POST" style="display:none;">
+                    @csrf
+                    <input type="hidden" name="purchase_from_detail" value="true">
+                </form>
                 @endif
             </div>
 
