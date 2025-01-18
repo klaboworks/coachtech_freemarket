@@ -73,6 +73,7 @@
                     @enderror
                 </div>
             </div>
+
             <div class="content-right">
                 <table class="payment-confirm text-center">
                     <tbody>
