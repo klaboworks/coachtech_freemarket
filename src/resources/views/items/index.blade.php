@@ -8,6 +8,7 @@
 
 @section('script')
 <script src="{{ asset('js/index.js') }}" defer></script>
+<script src="{{ asset('js/flash-animation.js') }}" defer></script>
 @endsection
 
 @section('content')
