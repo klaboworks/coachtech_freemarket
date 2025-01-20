@@ -67,7 +67,6 @@ $item_name=$item->item_name
                 </div>
                 @if($item->user_id == Auth::id() || $item->is_sold)
                 <p class="to-purchase block text-center sold-out">購入できません</p>
-                <p class="to-purchase block text-center sold-out">売り切れ</p>
                 @else
                 <a href="{{ route('purchase.create',$item->id) }}" onclick="event.target.form.submit();" class="to-purchase block text-center no-decoration">購入手続きへ</a>
                 <form name="purchaseForm" action="{{ route('purchase.create',$item->id) }}" method="POST" style="display:none;">

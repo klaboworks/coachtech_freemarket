@@ -6,6 +6,10 @@
 <link rel="stylesheet" href="{{ asset('css/purchase.css') }}">
 @endsection
 
+@section('script')
+<script src="{{ asset('js/purchase.js') }}" defer></script>
+@endsection
+
 @section('content')
 <section class="purchase">
     <div class="purchase__inner block-center">
@@ -33,10 +37,10 @@
                     <div class="payment-label">
                         <label for="payment_id">支払方法</label>
                     </div>
-                    <select name="payment_id">
+                    <select name="payment_id" id="payment-selector">
                         <option value="" selected disabled>選択してください</option>
                         @foreach($payments as $payment)
-                        <option value="{{$payment->id}}">{{$payment->payment}}</option>
+                        <option value="{{$payment->id}}" {{ old('payment_id') == $payment->id ? 'selected' : '' }}>{{$payment->payment}}</option>
                         @endforeach
                     </select>
                     @error('payment_id')
@@ -51,23 +55,41 @@
                 <div class="shipping-address">
                     <div class="address-heading flex-row">
                         <p class="address-label">配送先</p>
-                        <a href="" class="change-address no-decoration">変更する</a>
+                        <a href="{{ route('purchase.edit.address',$item->id) }}" class="change-address no-decoration">変更する</a>
                     </div>
-                    <p>〒 <input type="text" name="postal_code" readonly value="{{ Auth::user()->postal_code }}"></p>
+                    @if(!Auth::user()->postal_code && !old('postal_code'))
+                    <p><span>〒 </span>郵便番号を登録してください</p>
+                    @else
+                    <p><span>〒 </span><input type="text" name="postal_code" readonly value="{{ old('postal_code') ? old('postal_code') : Auth::user()->postal_code }}"></p>
+                    @endif
                     @error('postal_code')
                     <small class="error-message">
                         {{ $message }}
                     </small>
                     @enderror
-                    <p><input type="text" name="address1" readonly value="{{ Auth::user()->address1 }}"></p>
+                    @if(!Auth::user()->address1 && !old('address1'))
+                    <p>配送先を登録してください</p>
+                    @else
+                    <p><input type="text" name="address1" readonly value="{{ old('address1') ? old('address1') : Auth::user()->address1 }}"></p>
+                    @endif
                     @error('address1')
                     <small class="error-message">
                         {{ $message }}
                     </small>
                     @enderror
-                    <p><input type="text" name="address2" readonly value="{{ Auth::user()->address2 }}"></p>
+                    @if(!Auth::user()->address2 && !old('address2'))
+                    <p>配送先建物名を登録してください</p>
+                    @else
+                    <p><input type="text" name="address2" readonly value="{{ old('address2') ? old('address2') : Auth::user()->address2 }}"></p>
+                    @endif
+                    @error('address2')
+                    <small class="error-message">
+                        {{ $message }}
+                    </small>
+                    @enderror
                 </div>
             </div>
+
             <div class="content-right">
                 <table class="payment-confirm text-center">
                     <tbody>
@@ -77,7 +99,7 @@
                         </tr>
                         <tr>
                             <th>支払い方法</th>
-                            <td id="payment"></td>
+                            <td id="selected-payment">選択してください</td>
                         </tr>
                     </tbody>
                 </table>

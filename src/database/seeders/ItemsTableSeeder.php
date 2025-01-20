@@ -22,7 +22,7 @@ class ItemsTableSeeder extends Seeder
             [4, 2, 'Leather+Shoes+Product+Photo.jpg', '革靴', 4000, 'クラシックなデザインの革靴', true],
             [1, 2, 'Living+Room+Laptop.jpg', 'ノートPC', 45000, '高性能なノートパソコン', false],
             [2, 2, 'Music+Mic+4632231.jpg', 'マイク', 8000, '高音質のレコーディング用マイク', false],
-            [3, 3, 'Purse+fashion+pocket.jpg', 'ショルダーバッグ', 3500, 'おしゃれなショルダーバッグ', true],
+            [3, 3, 'Purse+fashion+pocket.jpg', 'ショルダーバッグ', 3500, 'おしゃれなショルダーバッグ', false],
             [4, 3, 'Tumbler+souvenir.jpg', 'タンブラー', 500, '使いやすいタンブラー', false],
             [1, 3, 'Waitress+with+Coffee+Grinder.jpg', 'コーヒーミル', 4000, '手動のコーヒーミル', false],
             [2, 1, '外出メイクアップセット.jpg', 'メイクセット', 2500, '便利なメイクアップセット', false],
