@@ -100,7 +100,8 @@
     }
 }
 
-.alert-success {
+.alert-success,
+.alert-danger {
     width: 100%;
     padding: 40px 0;
     position: fixed;

@@ -20,6 +20,12 @@
     </div>
     @endif
 
+    @if ($errors->has('caution'))
+    <div class="alert-danger text-center">
+        <p>{{ $errors->first('caution') }}</p>
+    </div>
+    @endif
+
     <div class="index__inner">
         <div class="index__heading">
             <div class="heading-menu">

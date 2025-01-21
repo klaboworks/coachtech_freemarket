@@ -12,6 +12,11 @@
         fill: "forwards",
     };
 
-    const success = document.querySelector(".alert-success");
-    success.animate(keyframes, options);
+    try {
+        const success = document.querySelector(".alert-success");
+        success.animate(keyframes, options);
+    } catch {
+        const danger = document.querySelector(".alert-danger");
+        danger.animate(keyframes, options);
+    }
 }
