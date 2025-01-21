@@ -19,42 +19,11 @@
 .content-right {
     margin-top: 32px;
     flex: 40%;
+    padding: 32px 0;
 }
 
 .item-info__texts {
     width: 100%;
-}
-
-.item-info,
-.payment-selection,
-.shipping-address {
-    padding: 32px 0;
-    border-bottom: solid 1px #838383;
-}
-
-.payment-selection,
-.shipping-address {
-    padding-left: 32px;
-    padding-right: 32px;
-
-    > select {
-        margin-left: 56px;
-        width: 50%;
-        height: 32px;
-    }
-    > p {
-        margin-left: 56px;
-        margin-bottom: 8px;
-
-        > input {
-            border: none;
-            pointer-events: none;
-        }
-    }
-}
-
-.error-message {
-    margin-left: 56px;
 }
 
 .item-name {
@@ -71,6 +40,42 @@
     }
 }
 
+.item-info,
+.payment-selection,
+.shipping-address {
+    border-bottom: solid 1px #838383;
+}
+
+.item-info {
+    padding: 32px 0;
+    gap: 40px;
+}
+
+.payment-selection,
+.shipping-address {
+    padding: 32px;
+
+    > select {
+        margin-left: 56px;
+        width: 50%;
+        height: 32px;
+    }
+
+    > input {
+        border: none;
+        pointer-events: none;
+    }
+}
+
+.error-payment {
+    margin-left: 56px;
+}
+
+.input-unit {
+    padding-left: 56px;
+    margin-bottom: 16px;
+}
+
 .payment-label,
 .address-label {
     margin-bottom: 40px;
@@ -78,8 +83,16 @@
     font-weight: bold;
 }
 
-.content-right {
-    padding: 32px 0;
+.item-image {
+    max-width: 240px;
+}
+
+.address-heading {
+    justify-content: space-between;
+}
+
+.change-address {
+    color: blue;
 }
 
 .payment-confirm {
@@ -105,22 +118,6 @@
             }
         }
     }
-}
-
-.item-info {
-    gap: 40px;
-}
-
-.item-image {
-    max-width: 240px;
-}
-
-.address-heading {
-    justify-content: space-between;
-}
-
-.change-address {
-    color: blue;
 }
 
 .purchase-submmit {
@@ -170,6 +167,10 @@
         }
     }
 
+    .input-unit {
+        padding-left: 0;
+    }
+
     .payment-selection,
     .shipping-address {
         padding-left: 0;
@@ -179,15 +180,6 @@
             margin-left: 0;
             width: 75%;
             height: 32px;
-        }
-        > p {
-            margin-left: 0;
-            margin-bottom: 8px;
-
-            > input {
-                border: none;
-                pointer-events: none;
-            }
         }
     }
 
@@ -204,6 +196,14 @@
             td {
                 padding: 24px 0;
             }
+
+            td {
+                font-size: 5vw;
+            }
         }
+    }
+
+    .error-payment {
+        margin-left: 0;
     }
 }

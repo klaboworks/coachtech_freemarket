@@ -16,8 +16,7 @@
         font-weight: bold;
     }
 
-    > input,
-    select {
+    > input{
         height: 40px;
         padding: 4px;
     }

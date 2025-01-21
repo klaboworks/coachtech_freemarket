@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Auth\Access\AuthorizationException;
 use App\Http\Requests\AddressRequest;
 use App\Http\Requests\PurchaseRequest;
 use App\Models\Item;
@@ -13,8 +15,13 @@ class PurchaseController extends Controller
 {
     public function create(Item $item)
     {
-        $payments = Payment::all();
-        return view('items.purchase', ['item' => $item], compact('payments'));
+        try {
+            Gate::authorize('checkItem', $item);
+            $payments = Payment::all();
+            return view('items.purchase', ['item' => $item], compact('payments'));
+        } catch (AuthorizationException) {
+            return redirect(route('items.index'))->withErrors(['caution' => '不正なアクセスです']);
+        }
     }
 
     public function editAddress(Item $item)
