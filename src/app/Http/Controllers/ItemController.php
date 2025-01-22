@@ -12,7 +12,7 @@ class ItemController extends Controller
     public function index(Request $request)
     {
         session()->put('search_query', $request->search);
-        $items = Item::Search($request->search)->ExceptCurrentUser()->Mylist($request->tab)->orderBy('id')->get();
+        $items = Item::Search($request->search)->ExceptCurrentUser()->Mylist($request->page)->orderBy('id')->get();
         return view('items.index', compact('items'));
     }
 

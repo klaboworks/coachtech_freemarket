@@ -60,11 +60,6 @@
         width: 50%;
         height: 32px;
     }
-
-    > input {
-        border: none;
-        pointer-events: none;
-    }
 }
 
 .error-payment {
@@ -74,6 +69,11 @@
 .input-unit {
     padding-left: 56px;
     margin-bottom: 16px;
+
+    input {
+        border: none;
+        pointer-events: none;
+    }
 }
 
 .payment-label,

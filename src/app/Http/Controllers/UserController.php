@@ -13,7 +13,7 @@ class UserController extends Controller
 {
     public function index(Request $request)
     {
-        $items = Item::Mypage($request->tab)->get();
+        $items = Item::Mypage($request->page)->get();
         return view('users.mypage', compact('items'));
     }
 

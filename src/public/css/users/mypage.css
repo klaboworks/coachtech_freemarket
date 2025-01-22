@@ -66,7 +66,7 @@
     color: #e96057;
 }
 
-.heading__tab {
+.heading__page {
     padding-left: 136px;
     margin-bottom: 24px;
     gap: 48px;
@@ -83,7 +83,7 @@
     }
 }
 
-.tab__sell,
-.tab__buy {
+.page__sell,
+.page__buy {
     color: black;
 }

@@ -90,21 +90,21 @@ class Item extends Model
         }
     }
 
-    public function scopeMylist($query, $tab)
+    public function scopeMylist($query, $page)
     {
-        if ((!empty($tab))) {
+        if ((!empty($page))) {
             $query->whereHas('favorites', function ($query) {
                 $query->where('user_id', Auth::id());
             });
         }
     }
 
-    public function scopeMypage($query, $tab)
+    public function scopeMypage($query, $page)
     {
-        if (!empty($tab)) {
-            if ($tab == 'sell') {
+        if (!empty($page)) {
+            if ($page == 'sell') {
                 $query->where('user_id', '=', Auth::id());
-            } elseif ($tab == 'buy') {
+            } elseif ($page == 'buy') {
                 $query->whereHas('purchases', function ($query) {
                     $query->where('user_id', Auth::id());
                 });

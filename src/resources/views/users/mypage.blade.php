@@ -36,17 +36,17 @@
                     <a href="{{route('edit.profile')}}" class="no-decoration">プロフィールを編集</a>
                 </div>
             </div>
-            <div class="heading__tab flex-row block-center">
+            <div class="heading__page flex-row block-center">
                 <form action="{{route('mypage')}}" method="get">
-                    <input type="hidden" name="tab" value="sell">
+                    <input type="hidden" name="page" value="sell">
                     <button>
-                        <p class="tab__sell">出品した商品</p>
+                        <p class="page__sell">出品した商品</p>
                     </button>
                 </form>
                 <form action="{{route('mypage')}}" method="get">
-                    <input type="hidden" name="tab" value="buy">
+                    <input type="hidden" name="page" value="buy">
                     <button>
-                        <p class="tab__buy">購入した商品</p>
+                        <p class="page__buy">購入した商品</p>
                     </button>
                 </form>
             </div>
