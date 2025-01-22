@@ -12,7 +12,6 @@
         <h2 class="page-title text-center">住所の変更</h2>
         <form action="{{ route('purchase.update.address',$item->id) }}" method="POST">
             @csrf
-            @method('PUT')
             <div class="input-unit flex-column">
                 <label for="postal_code">郵便番号</label>
                 <input type="text" name="postal_code" value="{{ old('postal_code') ? old('postal_code') : Auth::user()->postal_code }}">

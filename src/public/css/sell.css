@@ -33,11 +33,30 @@
     position: relative;
 }
 
+.image-preview {
+    width: 240px;
+    height: 240px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+
+    > img {
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+    }
+}
+
 .input-image {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    padding: 6px 16px;
+    border: solid 1px #e96057;
+    border-radius: 4px;
+    color: #e96057;
 }
 
 .category-selection__items {

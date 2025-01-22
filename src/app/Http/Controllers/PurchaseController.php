@@ -26,7 +26,12 @@ class PurchaseController extends Controller
 
     public function editAddress(Item $item)
     {
-        return view('items.shipping-address', ['item' => $item]);
+        try {
+            Gate::authorize('checkItem', $item);
+            return view('items.shipping-address', ['item' => $item]);
+        } catch (AuthorizationException) {
+            return redirect(route('items.index'))->withErrors(['caution' => '不正なアクセスです']);
+        }
     }
 
     public function updateAddress(AddressRequest $request, Item $item)

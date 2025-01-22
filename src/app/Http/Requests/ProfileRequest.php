@@ -31,8 +31,8 @@ class ProfileRequest extends FormRequest
     {
         return [
             'name.required' => 'お名前を入力してください',
-            'avater.image' => '画像を選択してください',
-            'avater.mimes' => 'アップロードできる画像はjpeg形式かpng形式のみです',
+            'avatar.image' => '画像を選択してください',
+            'avatar.mimes' => 'アップロードできる画像はjpeg形式かpng形式のみです',
         ];
     }
 }

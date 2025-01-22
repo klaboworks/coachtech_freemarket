@@ -26,7 +26,8 @@
     margin: 40px 0;
 
     .btn__avatar-select {
-        padding: 6px 16px;
+        width: 160px;
+        padding: 6px 0;
         border: solid 1px #e96057;
         border-radius: 4px;
         color: #e96057;

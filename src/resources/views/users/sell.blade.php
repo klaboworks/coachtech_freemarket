@@ -8,6 +8,7 @@
 
 @section('script')
 <script src="{{asset('js/sell.js')}}" defer></script>
+<script src="{{asset('js/image-preview.js')}}" defer></script>
 @endsection
 
 @section('content')
@@ -24,7 +25,12 @@
             <div class="input-unit flex-column">
                 <label for="item_image" class="input-label">商品画像</label>
                 <div class="image-area">
-                    <input type="file" name="item_image" class="input-image">
+                    <div class="image-preview">
+                        <img src="" id="preview" style="display:none;" alt=" プレビュー">
+                    </div>
+                    <label class="btn__avatar-select input-image">画像を選択する
+                        <input type="file" id="image" name="item_image" style="display:none;">
+                    </label>
                 </div>
                 @error('item_image')
                 <small class="error-message">
