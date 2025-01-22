@@ -24,13 +24,13 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/mypage', [UserController::class, 'index'])->name('mypage');
     Route::post('/item/{item}', [ItemController::class, 'like'])->name('like');
-    Route::post('/item{item}/comment', [CommentController::class, 'create'])->name('comment.create');
+    Route::post('/item/comment/{item}', [CommentController::class, 'store'])->name('comment.create');
     Route::get('/purchase/{item}', [PurchaseController::class, 'create'])->name('purchase.create');
-    Route::get('/purchase/address/{item}', [PurchaseController::class, 'editAddress'])->name('purchase.edit.address');
-    Route::put('/purchase/address/{item}', [PurchaseController::class, 'updateAddress'])->name('purchase.update.address');
     Route::post('/purchase/{item}', [PurchaseController::class, 'store'])->name('purchase.store');
-    Route::get('/sell', [SellController::class, 'index'])->name('sell.index');
-    Route::post('/sell', [SellController::class, 'create'])->name('sell.create');
+    Route::get('/purchase/address/{item}', [PurchaseController::class, 'editAddress'])->name('purchase.edit.address');
+    Route::post('/purchase/address/{item}', [PurchaseController::class, 'updateAddress'])->name('purchase.update.address');
+    Route::get('/sell', [SellController::class, 'create'])->name('sell.index');
+    Route::post('/sell', [SellController::class, 'store'])->name('sell.create');
 });
 
 // メール認証ルーティング

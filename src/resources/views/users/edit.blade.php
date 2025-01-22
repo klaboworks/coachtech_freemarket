@@ -10,6 +10,10 @@ $user=Auth::user();
 <link rel="stylesheet" href="{{ asset('css/users/edit.css') }}">
 @endsection
 
+@section('script')
+<script src="{{ asset('js/image-preview.js') }}" defer></script>
+@endsection
+
 @section('content')
 <section class="edit">
     <div class="edit__inner">
@@ -19,11 +23,12 @@ $user=Auth::user();
             <input type="hidden" name="id" value="{{$user->id}}">
             <div class="input-unit__avatar flex-row">
                 <div class="avatar">
+                    <img src="" id="preview" style="display:none;" alt=" プレビュー">
                     <img src="{{Auth::user()->getAvatarPath(Auth::user()->avatar)}}" alt="">
                 </div>
-                <div class="select-avatar">
-                    <label class="btn__avatar-select">画像を選択する
-                        <input type="file" name="avatar" style="display:none;">
+                <div class="select-avatar flex-column">
+                    <label class="btn__avatar-select block-center text-center">画像を選択する
+                        <input type="file" id="image" name="avatar" style="display:none;">
                     </label>
                     @error('avatar')
                     <small class="error-message">{{$message}}</small>

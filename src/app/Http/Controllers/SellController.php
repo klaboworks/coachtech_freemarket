@@ -12,7 +12,7 @@ use App\Models\Item;
 
 class SellController extends Controller
 {
-    public function index()
+    public function create()
     {
         $user = Auth::user();
         $categories = Category::all();
@@ -20,7 +20,7 @@ class SellController extends Controller
         return view('users.sell', compact('user', 'categories', 'conditions'));
     }
 
-    public function create(ExhibitionRequest $request)
+    public function store(ExhibitionRequest $request)
     {
         $image = $request->file('item_image');
         $path = Storage::put('', $image);

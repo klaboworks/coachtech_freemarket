@@ -8,7 +8,7 @@ use App\Models\Comment;
 
 class CommentController extends Controller
 {
-    public function create(CommentRequest $request)
+    public function store(CommentRequest $request)
     {
         Comment::create($request->all());
         return redirect()->back();
