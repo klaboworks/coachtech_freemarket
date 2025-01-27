@@ -18,6 +18,12 @@
             <input type="hidden" name="user_id" value="{{ Auth::id() }}">
             <input type="hidden" name="item_id" value="{{ $item->id }}">
 
+            <!-- Stripe決済画面振り分け用インプット -->
+            <input type="hidden" id="payment-method" name="payment_method" value="{{ old('payment_method') }}">
+
+            <!-- バリデーションエラー時決済方法リアルタイム表示保持用インプット -->
+            <input type="hidden" id="has-errors" value="{{ session('errors') ? 'true' : 'false' }}">
+
             <div class="content-left">
                 <div class="item-info flex-row">
                     <div class="item-image">

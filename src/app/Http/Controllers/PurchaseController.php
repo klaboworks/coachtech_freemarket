@@ -10,6 +10,9 @@ use App\Http\Requests\PurchaseRequest;
 use App\Models\Item;
 use App\Models\Payment;
 use App\Models\Purchase;
+use Stripe\Stripe;
+use Stripe\Checkout\Session;
+use Stripe\Webhook;
 
 class PurchaseController extends Controller
 {
@@ -40,7 +43,65 @@ class PurchaseController extends Controller
         return redirect()->route('purchase.create', ['item' => $item]);
     }
 
-    public function store(PurchaseRequest $request)
+    public function store(PurchaseRequest $request, Item $item)
+    {
+        try {
+            Gate::authorize('checkItem', $item);
+            Stripe::setApiKey(env('STRIPE_SECRET'));
+            $product = Item::find($request->item_id);
+
+            $session = $this->createCheckoutSession($request, $product);
+
+            return redirect()->away($session->url);
+        } catch (AuthorizationException) {
+            return redirect(route('items.index'))->withErrors(['caution' => 'エラーが発生しました']);
+        }
+    }
+
+    private function createCheckoutSession(PurchaseRequest $request, Item $product)
+    {
+        $paymentMethodTypes = ['card'];
+        if ($request->payment_method == 1) {
+            $paymentMethodTypes = ['konbini'];
+        }
+
+        $session = Session::create([
+            'payment_method_types' => $paymentMethodTypes,
+            'line_items' => [[
+                'price_data' => [
+                    'currency' => 'jpy',
+                    'unit_amount' => $product->price,
+                    'product_data' => [
+                        'name' => $product->item_name,
+                    ],
+                ],
+                'quantity' => 1,
+            ]],
+            'mode' => 'payment',
+            'success_url' => route('mypage'),
+            'cancel_url' => route('mypage'),
+        ]);
+
+        return $session;
+    }
+
+    // public function handleCheckoutSessionCompleted(Request $request)
+    // {
+    //     // Webhookの署名検証
+    //     // ...
+
+    //     $event = $request->json();
+    //     $session = $event['data']['object'];
+
+    //     // 決済が完了したら、soldOut関数を呼び出す
+    //     $this->soldOut([
+    //         'user_id' => $session['customer'], // 顧客IDを取得
+    //         'item_id' => $session['line_items'][0]['price']['product'], // 商品IDを取得
+    //         // ... その他必要な情報
+    //     ]);
+    // }
+
+    public function soldOut(Request $request)
     {
         $overwrittenData = session('overwritten_data', []);
         $data = array_merge([
@@ -54,7 +115,5 @@ class PurchaseController extends Controller
         Purchase::create($data);
         session()->forget('overwritten_data');
         Item::find($request->item_id)->update(['is_sold' => true]);
-
-        return redirect(route('mypage'));
     }
 }

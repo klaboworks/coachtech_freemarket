@@ -41,7 +41,7 @@ class UserFactory extends Factory
     private function generateUserEmail()
     {
         static $count = 1;
-        return 'user' . $count++ . '@com';
+        return 'user' . $count++ . '@test.com';
     }
 
     /**
