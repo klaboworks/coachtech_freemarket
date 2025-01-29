@@ -14,7 +14,7 @@
             <form action="{{route('login')}}" method="post">
                 @csrf
                 <div class="input-unit flex-column">
-                    <label for="email">ユーザー名 / メールアドレス</label>
+                    <label for="email">メールアドレス</label>
                     <input type="text" name="email" value="{{ old('email') }}">
                     @error('email')
                     <small class="error-message">
