@@ -4,16 +4,9 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-use App\Models\User;
 
 class LoginTest extends TestCase
 {
-    // use RefreshDatabase;
-
-    /**
-     * A basic feature test example.
-     */
-
     public function assertLoginPageIsDisplayed()
     {
         $response = $this->get(route('login'));
@@ -31,8 +24,10 @@ class LoginTest extends TestCase
             'password' => 'password',
         ]);
 
+        $response->assertStatus(302);
         $response->assertSessionHasErrors(['email']);
-        $this->assertEquals('メールアドレスを入力してください', session('errors')->first('email'));
+        $response->assertInvalid(['email' => 'メールアドレスを入力してください']);
+        $this->assertGuest();
     }
 
     // パスワードが入力されていない場合、バリデーションメッセージが表示される
@@ -40,12 +35,14 @@ class LoginTest extends TestCase
     {
         $this->assertLoginPageIsDisplayed();
         $response = $this->post(route('login'), [
-            'email' => 'test_user',
+            'email' => 'test@example.com',
             'password' => '',
         ]);
 
+        $response->assertStatus(302);
         $response->assertSessionHasErrors(['password']);
-        $this->assertEquals('パスワードを入力してください', session('errors')->first('password'));
+        $response->assertInvalid(['password' => 'パスワードを入力してください']);
+        $this->assertGuest();
     }
 
     // 入力情報が間違っている場合、バリデーションメッセージが表示される
@@ -53,25 +50,28 @@ class LoginTest extends TestCase
     {
         $this->assertLoginPageIsDisplayed();
         $response = $this->post(route('login'), [
-            'email' => 'test_user',
+            'email' => 'test@example.com',
             'password' => 'wrong_password',
         ]);
 
+        $response->assertStatus(302);
         $response->assertSessionHasErrors(['email']);
-        $this->assertEquals('ログイン情報が登録されていません', session('errors')->first('email'));
+        $response->assertInvalid(['email' => 'ログイン情報が登録されていません']);
+        $this->assertGuest();
     }
 
     // 正しい情報が入力された場合、ログイン処理が実行される
     public function testSuccessLogin(): void
     {
+        $user = $this->createUser();
         $this->assertLoginPageIsDisplayed();
-        $user = User::where('email', 'test@example.com')->first();
         $response = $this->post(route('login'), [
-            'email' => $user->email,
+            'email' => 'user1@test.com',
             'password' => 'password',
         ]);
 
-        $this->assertAuthenticated();
+        $response->assertStatus(302);
+        $this->assertAuthenticatedAs($user);
         $response->assertRedirect(route('items.index'));
     }
 }
