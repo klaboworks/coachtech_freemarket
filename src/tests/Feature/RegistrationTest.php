@@ -2,17 +2,11 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\Models\User;
 
 class RegistrationTest extends TestCase
 {
-    // use RefreshDatabase;
-    /**
-     * A basic feature test example.
-     */
-
     public function assertRegisterPageIsDisplayed()
     {
         $response = $this->get(route('register'));
@@ -34,6 +28,7 @@ class RegistrationTest extends TestCase
 
         $response->assertSessionHasErrors(['name']);
         $response->assertInvalid(['name' => 'お名前を入力してください',]);
+        $this->assertGuest();
     }
 
     // メールアドレスが入力されていない場合、バリデーションメッセージが表示される
@@ -48,7 +43,8 @@ class RegistrationTest extends TestCase
         ]);
 
         $response->assertSessionHasErrors('email');
-        $this->assertEquals('メールアドレスを入力してください', session('errors')->first('email'));
+        $response->assertInvalid(['email' => 'メールアドレスを入力してください']);
+        $this->assertGuest();
     }
 
     // パスワードが入力されていない場合、バリデーションメッセージが表示される
@@ -63,7 +59,8 @@ class RegistrationTest extends TestCase
         ]);
 
         $response->assertSessionHasErrors('password');
-        $this->assertEquals('パスワードを入力してください', session('errors')->first('password'));
+        $response->assertInvalid(['password' => 'パスワードを入力してください']);
+        $this->assertGuest();
     }
 
     // パスワードが7文字以下の場合、バリデーションメッセージが表示される
@@ -78,7 +75,8 @@ class RegistrationTest extends TestCase
         ]);
 
         $response->assertSessionHasErrors('password');
-        $this->assertEquals('パスワードは8文字以上で入力してください', session('errors')->first('password'));
+        $response->assertInvalid(['password' => 'パスワードは8文字以上で入力してください']);
+        $this->assertGuest();
     }
 
     // パスワードが確認用パスワードと一致しない場合、バリデーションメッセージが表示される
@@ -93,7 +91,8 @@ class RegistrationTest extends TestCase
         ]);
 
         $response->assertSessionHasErrors('password');
-        $this->assertEquals('パスワードと一致しません', session('errors')->first('password'));
+        $response->assertInvalid(['password' => 'パスワードと一致しません']);
+        $this->assertGuest();
     }
 
     // 全ての項目が入力されている場合、会員情報が登録され、ログイン画面に遷移される
@@ -113,8 +112,8 @@ class RegistrationTest extends TestCase
             ->assertSee('プロフィール設定');
 
         // option 正しくユーザー登録、ログインできたかどうか確認
-        $this->assertAuthenticated();
         $user = User::where('email', 'test@example.com')->first();
         $this->assertEquals('test_user', $user->name);
+        $this->assertAuthenticatedAs($user);
     }
 }
