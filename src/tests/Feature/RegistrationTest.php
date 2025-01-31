@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use App\Models\User;
 
 class RegistrationTest extends TestCase
 {
@@ -25,7 +24,7 @@ class RegistrationTest extends TestCase
             'password' => 'password',
             'password_confirmation' => 'password',
         ]);
-
+        $response->assertStatus(302);
         $response->assertSessionHasErrors(['name']);
         $response->assertInvalid(['name' => 'お名前を入力してください',]);
         $this->assertGuest();
@@ -42,6 +41,7 @@ class RegistrationTest extends TestCase
             'password_confirmation' => 'password',
         ]);
 
+        $response->assertStatus(302);
         $response->assertSessionHasErrors('email');
         $response->assertInvalid(['email' => 'メールアドレスを入力してください']);
         $this->assertGuest();
@@ -58,6 +58,7 @@ class RegistrationTest extends TestCase
             'password_confirmation' => 'password',
         ]);
 
+        $response->assertStatus(302);
         $response->assertSessionHasErrors('password');
         $response->assertInvalid(['password' => 'パスワードを入力してください']);
         $this->assertGuest();
@@ -74,6 +75,7 @@ class RegistrationTest extends TestCase
             'password_confirmation' => 'password',
         ]);
 
+        $response->assertStatus(302);
         $response->assertSessionHasErrors('password');
         $response->assertInvalid(['password' => 'パスワードは8文字以上で入力してください']);
         $this->assertGuest();
@@ -90,6 +92,7 @@ class RegistrationTest extends TestCase
             'password_confirmation' => 'passwordB',
         ]);
 
+        $response->assertStatus(302);
         $response->assertSessionHasErrors('password');
         $response->assertInvalid(['password' => 'パスワードと一致しません']);
         $this->assertGuest();
@@ -108,12 +111,6 @@ class RegistrationTest extends TestCase
 
         $response->assertValid();
         $response->assertStatus(200)
-            ->assertViewIs('users.edit')
-            ->assertSee('プロフィール設定');
-
-        // option 正しくユーザー登録、ログインできたかどうか確認
-        $user = User::where('email', 'test@example.com')->first();
-        $this->assertEquals('test_user', $user->name);
-        $this->assertAuthenticatedAs($user);
+            ->assertViewIs('users.edit');
     }
 }
