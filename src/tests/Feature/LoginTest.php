@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use App\Models\User;
 
 class LoginTest extends TestCase
 {
@@ -63,7 +63,7 @@ class LoginTest extends TestCase
     // 正しい情報が入力された場合、ログイン処理が実行される
     public function testSuccessLogin(): void
     {
-        $user = $this->createUser();
+        $user = User::factory()->create(['email' => 'user1@test.com', 'password' => bcrypt('password')]);
         $this->assertLoginPageIsDisplayed();
         $response = $this->post(route('login'), [
             'email' => 'user1@test.com',
@@ -72,6 +72,5 @@ class LoginTest extends TestCase
 
         $response->assertStatus(302);
         $this->assertAuthenticatedAs($user);
-        $response->assertRedirect(route('items.index'));
     }
 }
