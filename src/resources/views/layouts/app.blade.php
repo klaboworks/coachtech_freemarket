@@ -41,7 +41,7 @@
                 </form>
                 @endif
                 <a href="/mypage" class="mypage">マイページ</a>
-                <a href="{{route('sell.index')}}" class="list-items">出品</a>
+                <a href="{{route('sell.create')}}" class="list-items">出品</a>
             </div>
 
             <div class=humburger__open>
@@ -71,7 +71,7 @@
                     <a href="/mypage" class="humburger__mypage no-decoration">マイページ</a>
                 </div>
                 <div>
-                    <a href="{{route('sell.index')}}" class="humburger__list-items no-decoration">出品</a>
+                    <a href="{{route('sell.create')}}" class="humburger__list-items no-decoration">出品</a>
                 </div>
             </div>
         </div>

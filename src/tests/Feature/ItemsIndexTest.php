@@ -17,15 +17,15 @@ class ItemsIndexTest extends TestCase
 
         $this->assertEquals(5, $allItems->count());
         $response
-            ->assertSee($allItems[0]->name)
-            ->assertSee($allItems[1]->name)
-            ->assertSee($allItems[2]->name)
-            ->assertSee($allItems[3]->name)
-            ->assertSee($allItems[4]->name);
+            ->assertSee($allItems[0]->item_name)
+            ->assertSee($allItems[1]->item_name)
+            ->assertSee($allItems[2]->item_name)
+            ->assertSee($allItems[3]->item_name)
+            ->assertSee($allItems[4]->item_name);
     }
 
     // 購入済み商品は「Sold」と表示される
-    public function testItemsWithSoldLabel()
+    public function testItemsWithSoldLabel(): void
     {
         Item::factory()->create(['is_sold' => true]);
 
@@ -36,7 +36,7 @@ class ItemsIndexTest extends TestCase
     }
 
     // 自分の商品を除外した全商品を取得する
-    public function testDisplayWithoutMyItems()
+    public function testDisplayWithoutMyItems(): void
     {
         $userA = User::factory()->create();
         $userB = User::factory()->create();
@@ -53,11 +53,13 @@ class ItemsIndexTest extends TestCase
         $response = $this->get(route('items.index'));
         $response->assertStatus(200);
 
-        $response->assertDontSee($retrievedItemsA[0]->name);
-        $response->assertDontSee($retrievedItemsA[1]->name);
+        // 自分のアイテムは表示されない
+        $response->assertDontSee($retrievedItemsA[0]->item_name);
+        $response->assertDontSee($retrievedItemsA[1]->item_name);
 
-        $response->assertSee($retrievedItemsB[0]->name);
-        $response->assertSee($retrievedItemsB[1]->name);
-        $response->assertSee($retrievedItemsB[2]->name);
+        // 自分以外のアイテムは表示される
+        $response->assertSee($retrievedItemsB[0]->item_name);
+        $response->assertSee($retrievedItemsB[1]->item_name);
+        $response->assertSee($retrievedItemsB[2]->item_name);
     }
 }
