@@ -9,8 +9,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class CategoryItemFactory extends Factory
 {
-    private static $counter1 = 1;
-    private static $counter2 = 1;
     /**
      * Define the model's default state.
      *
@@ -23,24 +21,4 @@ class CategoryItemFactory extends Factory
             'item_id' => \App\Models\Item::factory(),
         ];
     }
-
-    // private function categoryId()
-    // {
-    //     $value = self::$counter1;
-    //     self::$counter1++;
-    //     if (self::$counter1 > 10) {
-    //         self::$counter1 = 1;
-    //     }
-    //     return $value;
-    // }
-
-    // private function itemId()
-    // {
-    //     $value = self::$counter2;
-    //     self::$counter2++;
-    //     if (self::$counter2 > 5) {
-    //         self::$counter2 = 1;
-    //     }
-    //     return $value;
-    // }
 }

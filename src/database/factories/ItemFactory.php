@@ -3,14 +3,16 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\URL;
+use App\Models\Category;
+use App\Models\Comment;
+use App\Models\Item;
+use App\Models\User;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Item>
  */
 class ItemFactory extends Factory
 {
-    private static $counter = 1;
     /**
      * Define the model's default state.
      *
@@ -30,46 +32,20 @@ class ItemFactory extends Factory
         ];
     }
 
-    // private function condition()
-    // {
-    //     $value = self::$counter;
-    //     self::$counter++;
-    //     if (self::$counter > 3) {
-    //         self::$counter = 1;
-    //     }
-    //     return $value;
-    // }
-
-    // private function itemName()
-    // {
-    //     static $count = 1;
-    //     return 'item_' . $count++;
-    // }
-
-    // private function brandName()
-    // {
-    //     static $count = 1;
-    //     return 'brand_' . $count++;
-    // }
-
-    // private function price()
-    // {
-    //     static $count = 1000;
-    //     static $callCount = 0;
-
-    //     $callCount++;
-
-    //     if ($callCount == 1) {
-    //         return $count;
-    //     } else {
-    //         $count += 1000;
-    //         return $count;
-    //     }
-    // }
-
-    // private function itemDescription()
-    // {
-    //     static $count = 1;
-    //     return 'description_' . $count++;
-    // }
+    /**
+     * Configure the model's state to generate related CategoryItem and Category data.
+     *
+     * @return $this
+     */
+    public function configure()
+    {
+        return $this->afterCreating(function (Item $item) {
+            $categories = Category::factory(2)->create();
+            foreach ($categories as $category) {
+                $item->categories()->attach($category->id);
+            }
+            $user = User::inRandomOrder()->first();
+            Comment::factory()->create(['item_id' => $item->id, 'user_id' => $user->id]);
+        });
+    }
 }
