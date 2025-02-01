@@ -47,6 +47,9 @@ class PurchaseController extends Controller
     {
         try {
             Gate::authorize('checkItem', $item);
+
+            $this->soldOut($request);
+
             Stripe::setApiKey(env('STRIPE_SECRET'));
             $product = Item::find($request->item_id);
 
@@ -56,6 +59,22 @@ class PurchaseController extends Controller
         } catch (AuthorizationException) {
             return redirect(route('items.index'))->withErrors(['caution' => 'エラーが発生しました']);
         }
+    }
+
+    public function soldOut(Request $request)
+    {
+        $overwrittenData = session('overwritten_data', []);
+        $data = array_merge([
+            'user_id' => $request->user_id,
+            'item_id' => $request->item_id,
+            'payment_id' => $request->payment_id,
+            'postal_code' => $request->postal_code,
+            'address1' => $request->address1,
+            'address2' => $request->address2,
+        ], $overwrittenData);
+        Purchase::create($data);
+        session()->forget('overwritten_data');
+        Item::find($request->item_id)->update(['is_sold' => true]);
     }
 
     private function createCheckoutSession(PurchaseRequest $request, Item $product)
@@ -83,37 +102,5 @@ class PurchaseController extends Controller
         ]);
 
         return $session;
-    }
-
-    // public function handleCheckoutSessionCompleted(Request $request)
-    // {
-    //     // Webhookの署名検証
-    //     // ...
-
-    //     $event = $request->json();
-    //     $session = $event['data']['object'];
-
-    //     // 決済が完了したら、soldOut関数を呼び出す
-    //     $this->soldOut([
-    //         'user_id' => $session['customer'], // 顧客IDを取得
-    //         'item_id' => $session['line_items'][0]['price']['product'], // 商品IDを取得
-    //         // ... その他必要な情報
-    //     ]);
-    // }
-
-    public function soldOut(Request $request)
-    {
-        $overwrittenData = session('overwritten_data', []);
-        $data = array_merge([
-            'user_id' => $request->user_id,
-            'item_id' => $request->item_id,
-            'payment_id' => $request->payment_id,
-            'postal_code' => $request->postal_code,
-            'address1' => $request->address1,
-            'address2' => $request->address2,
-        ], $overwrittenData);
-        Purchase::create($data);
-        session()->forget('overwritten_data');
-        Item::find($request->item_id)->update(['is_sold' => true]);
     }
 }

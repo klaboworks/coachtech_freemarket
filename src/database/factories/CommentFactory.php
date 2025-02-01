@@ -19,13 +19,7 @@ class CommentFactory extends Factory
         return [
             'user_id' => \App\Models\User::factory(),
             'item_id' => \App\Models\Item::factory(),
-            'comment' => $this->generateComment(),
+            'comment' => fake()->realText(10),
         ];
-    }
-
-    private function generateComment()
-    {
-        static $count = 1;
-        return 'comment' . $count++;
     }
 }

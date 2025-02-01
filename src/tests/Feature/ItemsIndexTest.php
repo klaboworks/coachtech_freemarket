@@ -2,33 +2,47 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Support\Facades\Artisan;
 use Tests\TestCase;
 use App\Models\Item;
 use App\Models\User;
 
 class ItemsIndexTest extends TestCase
 {
-    // protected function setUp(): void
-    // {
-    //     parent::setUp();
-    //     $this->seedItems();
-    // }
-
+    // 全商品を表示する
     public function testDisplayAllItems(): void
     {
-        $this->seedItems();
+        $allItems = Item::factory(5)->create();
         $response = $this->get(route('items.index'));
         $response->assertStatus(200);
+
+        $this->assertEquals(5, $allItems->count());
+        $response
+            ->assertSee($allItems[0]->name)
+            ->assertSee($allItems[1]->name)
+            ->assertSee($allItems[2]->name)
+            ->assertSee($allItems[3]->name)
+            ->assertSee($allItems[4]->name);
     }
 
+    // 購入済み商品は「Sold」と表示される
+    public function testItemsWithSoldLabel()
+    {
+        Item::factory()->create(['is_sold' => true]);
+
+        $response = $this->get(route('items.index'));
+        $response->assertStatus(200);
+
+        $response->assertSee('sold');
+    }
+
+    // 自分の商品を除外した全商品を取得する
     public function testDisplayWithoutMyItems()
     {
         $userA = User::factory()->create();
         $userB = User::factory()->create();
 
-        /** @var \App\Models\User $userA */ // User モデルのパスに合わせて修正
-        /** @var \App\Models\User $userB */ // User モデルのパスに合わせて修正
+        /** @var \App\Models\User $userA */
+        /** @var \App\Models\User $userB */
         Item::factory(2)->create(['user_id' => $userA->id]);
         Item::factory(3)->create(['user_id' => $userB->id]);
 
@@ -37,6 +51,7 @@ class ItemsIndexTest extends TestCase
 
         $this->actingAs($userA);
         $response = $this->get(route('items.index'));
+        $response->assertStatus(200);
 
         $response->assertDontSee($retrievedItemsA[0]->name);
         $response->assertDontSee($retrievedItemsA[1]->name);
@@ -44,40 +59,5 @@ class ItemsIndexTest extends TestCase
         $response->assertSee($retrievedItemsB[0]->name);
         $response->assertSee($retrievedItemsB[1]->name);
         $response->assertSee($retrievedItemsB[2]->name);
-        $response->assertStatus(200);
     }
-
-    // public function testSoldItemsHaveLabel(): void
-    // {
-    //     $response = $this->get(route('items.index'));
-    //     $response->assertStatus(200);
-    //     $response->assertSee('Sold');
-
-
-    //     // 購入済みアイテムを表示する…？
-    //     $soldOutItems = Item::where('is_sold', true)->get();
-    //     foreach ($soldOutItems as $item) {
-    //         $response->assertSee($item->item_name);
-    //     }
-    // }
-
-    // public function testDisplayWithoutMyItems(): void
-    // {
-    //     $user = User::find(1);
-
-    //     $ownItems = Item::where('user_id', $user->id)->get();
-    //     $otherItems = Item::where('user_id', '!=', $user->id)->get();
-
-    //     $response = $this->actingAs($user)->get(route('items.index'));
-    //     $response->assertStatus(200);
-    //     $this->assertAuthenticatedAs($user);
-
-    //     foreach ($ownItems as $item) {
-    //         $response->assertDontSee($item->item_name);
-    //     }
-
-    //     foreach ($otherItems as $item) {
-    //         $response->assertSee($item->item_name);
-    //     }
-    // }
 }
