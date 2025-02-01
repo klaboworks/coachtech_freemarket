@@ -15,7 +15,7 @@
 <section class="sell">
     <div class="sell__inner block-center">
         <h2 class="page-title text-center">商品の出品</h2>
-        <form action="{{route('sell.create')}}" method="post" enctype="multipart/form-data" class="sell-form flex-column">
+        <form action="{{route('sell.store')}}" method="post" enctype="multipart/form-data" class="sell-form flex-column">
             @csrf
 
             <!-- バリデーションエラー時カテゴリーラベル色変え保持用input -->

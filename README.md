@@ -40,23 +40,6 @@
 
 - `composer install`
 
-### .env ファイルを作成
-
-- `cp .env.example .env`
-
-### MAILER 送信設定
-
-- .env ファイルの MAIL の項目を任意の設定に更新
-
-### .env ファイのル DB 項目を下記に変更
-
-    DB_CONNECTION=mysql
-    DB_HOST=mysql
-    DB_PORT=3306
-    DB_DATABASE=laravel_db
-    DB_USERNAME=laravel_user
-    DB_PASSWORD=laravel_pass
-
 ### キーを作成
 
 - `php artisan key:generate`
@@ -68,5 +51,50 @@
 ### アップロード画像表示機能オン
 
 - `php artisan storage:link`
+
+# 環境変数設定
+
+### .env ファイルを作成
+
+- `cp .env.example .env`
+
+### MAILER 送信設定
+
+- .env ファイルの MAIL の項目を任意の設定に更新
+
+### .env ファイのル LOCAL 項目を下記に変更
+
+    APP_LOCALE=ja
+    APP_FALLBACK_LOCALE=ja
+    APP_FAKER_LOCALE=ja_JP
+
+### .env ファイのル DB 項目を下記に変更
+
+    DB_CONNECTION=mysql
+    DB_HOST=mysql
+    DB_PORT=3306
+    DB_DATABASE=laravel_db
+    DB_USERNAME=laravel_user
+    DB_PASSWORD=laravel_pass
+
+### .env ファイルに下記の項目を追加
+
+    STRIPE_KEY= ここにストライプの公開鍵を入力してください
+    STRIPE_SECRET= ここにストライプの秘密鍵を入力してください
+
+# テスト環境整備
+
+### テスト用データベース作成
+
+- Mysql コンテナにログイン
+- 'test_db'という名前のデータベースを作る
+- 下記のコードで権限付与と権限の変更を MySQL サーバーに反映
+- `GRANT ALL PRIVILEGES ON test_db.* TO 'laravel_user'@'%';`
+- `FLUSH PRIVILEGES;`
+
+### phpunit.xml 設定
+
+- phpunit.xml を開き、env name="DB_DATABASE"の項目を下記に変更、コメントアウトを外す
+  <env name="DB_DATABASE" value="test_db"/>
 
 ## 備考

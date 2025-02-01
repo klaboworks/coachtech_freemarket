@@ -13,21 +13,12 @@ use App\Models\User;
 
 abstract class TestCase extends BaseTestCase
 {
-    // use RefreshDatabase;
+    use RefreshDatabase;
 
     protected function createUser()
     {
         return User::factory()->create();
     }
-
-    // protected function login()
-    // {
-    //     /** @var \App\Models\User $user */
-    //     $user = $this->createUser();
-    //     $this->actingAs($user);
-
-    //     return $user;
-    // }
 
     protected function seedItems()
     {
