@@ -6,9 +6,9 @@ use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 use App\Models\Item;
 
-class BuyTest extends TestCase
+class PurchaseTest extends TestCase
 {
-    public function test_example(): void
+    public function testPurchase(): void
     {
         Http::fake([
             'https://api.stripe.com/*' => Http::response(['id' => 'mock_session_id', 'url' => 'mock_url'], 200),
