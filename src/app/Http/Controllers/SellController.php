@@ -23,7 +23,7 @@ class SellController extends Controller
     public function store(ExhibitionRequest $request)
     {
         $image = $request->file('item_image');
-        $path = Storage::put('', $image);
+        $path = $image->store('item_images', 'public');
         $item = Item::create([
             'condition_id' => $request->condition_id,
             'user_id' => $request->user_id,

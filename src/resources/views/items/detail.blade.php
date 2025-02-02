@@ -114,7 +114,7 @@ $item_name=$item->item_name
 
             <div class="comment-form">
                 <p>商品へのコメント</p>
-                <form action="{{route('comment.create',$item->id)}}" method="post">
+                <form action="{{route('comment.store',$item->id)}}" method="post">
                     @csrf
                     @if(Auth::check())
                     <input type="hidden" name="user_id" value="{{Auth::user()->id}}">

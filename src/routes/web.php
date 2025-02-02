@@ -24,7 +24,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/mypage', [UserController::class, 'index'])->name('mypage');
     Route::post('/item/{item}', [ItemController::class, 'like'])->name('like');
-    Route::post('/item/comment/{item}', [CommentController::class, 'store'])->name('comment.create');
+    Route::post('/item/comment/{item}', [CommentController::class, 'store'])->name('comment.store');
     Route::get('/purchase/{item}', [PurchaseController::class, 'create'])->name('purchase.create');
     Route::post('/purchase/{item}', [PurchaseController::class, 'store'])->name('purchase.store');
     Route::get('/purchase/address/{item}', [PurchaseController::class, 'editAddress'])->name('purchase.edit.address');

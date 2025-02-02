@@ -67,7 +67,7 @@ class Item extends Model
     public function getImagePath($imagePath)
     {
         if (!$imagePath) {
-            return asset('images/avatar/no_avatar.webp');
+            return asset('images/items/no-image.png');
         }
 
         if (file_exists(public_path('images/items/' . $imagePath))) {
