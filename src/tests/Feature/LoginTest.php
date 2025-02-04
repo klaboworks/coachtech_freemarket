@@ -20,7 +20,7 @@ class LoginTest extends TestCase
     {
         $this->assertLoginPageIsDisplayed();
         $response = $this->post(route('login'), [
-            'email' => '',
+            'email' => null,
             'password' => 'password',
         ]);
 
@@ -36,7 +36,7 @@ class LoginTest extends TestCase
         $this->assertLoginPageIsDisplayed();
         $response = $this->post(route('login'), [
             'email' => 'test@example.com',
-            'password' => '',
+            'password' => null,
         ]);
 
         $response->assertStatus(302);
@@ -48,9 +48,10 @@ class LoginTest extends TestCase
     // 入力情報が間違っている場合、バリデーションメッセージが表示される
     public function testFailLogin(): void
     {
+        User::factory()->create(['email' => 'user1@test.com', 'password' => bcrypt('password')]);
         $this->assertLoginPageIsDisplayed();
         $response = $this->post(route('login'), [
-            'email' => 'test@example.com',
+            'email' => 'wrong_email@example.com',
             'password' => 'wrong_password',
         ]);
 

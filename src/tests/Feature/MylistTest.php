@@ -35,7 +35,7 @@ class MylistTest extends TestCase
             $response->assertSee($otherItem->item_name);
         }
 
-        // マイリストへ移動
+        // マイリストへ移動、いいねした商品のみが表示されている
         $response = $this->get(route('items.index') . '?page=mylist');
         $response->assertStatus(200);
         $response->assertSee($likedItem->item_name);

@@ -2,20 +2,31 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 use App\Models\Item;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ItemDetailTest extends TestCase
 {
-    use RefreshDatabase;
-
     // すべての情報が商品詳細ページに表示されている
     public function testItemInfoDisplayed(): void
     {
-        $item = Item::factory()->create();
+        Storage::fake('public');
+        $itemImage = UploadedFile::fake()->image('item.jpg');
+        $imagePath = Storage::disk('public')->putFile('item_images', $itemImage);
+
+        $item = Item::factory()->create([
+            'item_image' => $imagePath,
+        ]);
+
+        $files = Storage::disk('public')->files('item_images');
+        $this->assertCount(1, array_filter($files, function ($file) use ($itemImage) {
+            return str_contains($file, $itemImage->hashName());
+        }));
 
         $response = $this->get(route('item.detail', $item->id));
+
         $response->assertStatus(200);
         $response
             ->assertSee($item->getImagePath($item->item_image))
@@ -40,6 +51,7 @@ class ItemDetailTest extends TestCase
     public function testRelatedCategoriesDisplayed(): void
     {
         $item = Item::factory()->create();
+        // Itemfactory内のコードで紐づくカテゴリ2つ作成しています。
 
         $response = $this->get(route('item.detail', $item->id));
         $response->assertStatus(200);

@@ -101,12 +101,21 @@ class RegistrationTest extends TestCase
     // 全ての項目が入力されている場合、会員情報が登録され、ログイン画面に遷移される
     public function testRegistrationSucceed(): void
     {
+        $userName = 'test_user';
+        $userEmail = 'test@example.com';
+
         $this->assertRegisterPageIsDisplayed();
         $response = $this->post(route('register'), [
-            'name' => 'test_user',
-            'email' => 'test@example.com',
+            'name' => $userName,
+            'email' => $userEmail,
             'password' => 'password',
             'password_confirmation' => 'password',
+        ]);
+
+        // usersテーブルデータ登録確認
+        $this->assertDatabaseHas('users', [
+            'name' => $userName,
+            'email' => $userEmail,
         ]);
 
         $response->assertValid();

@@ -53,7 +53,7 @@ class PurchaseTest extends TestCase
             'is_sold' => true,
         ]);
 
-        // 商品一覧ページへ移動
+        // 商品一覧ページへ移動、Soldラベル確認
         $response = $this->get(route('items.index'));
         $response->assertStatus(200);
         $response->assertSee($item->item_name);

@@ -15,7 +15,7 @@ class CommentTest extends TestCase
         $this->actingAs($user);
         $this->assertAuthenticatedAs($user);
 
-        // 最初のコメント数は 1（ファクトリー生成）
+        // 最初のコメント数は 1（Itemファクトリーの生成による）
         $response = $this->get(route('item.detail', $item->id));
         $response->assertStatus(200);
         $this->assertEquals(1, $item->comments->count());
@@ -45,10 +45,10 @@ class CommentTest extends TestCase
     public function testCannotPostComment(): void
     {
         $item = Item::factory()->create();
-        $this->assertGuest();
 
         $response = $this->get(route('item.detail', $item->id));
         $response->assertStatus(200);
+        $this->assertGuest();
 
         $response = $this->post(route('comment.store', $item->id), [
             'user_id' => null,

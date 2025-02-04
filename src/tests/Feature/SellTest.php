@@ -33,7 +33,7 @@ class SellTest extends TestCase
             'item_name' => 'testItem',
             'brand_name' => 'testBrand',
             'price' => 1000,
-            'item_description' => 'This item is very good',
+            'item_description' => 'This item is very good!',
             'is_sold' => false,
             'categories' => [$category1->id, $category2->id],
         ]);
@@ -52,7 +52,7 @@ class SellTest extends TestCase
             'item_name' => 'testItem',
             'brand_name' => 'testBrand',
             'price' => 1000,
-            'item_description' => 'This item is very good',
+            'item_description' => 'This item is very good!',
             'is_sold' => false,
         ]);
 

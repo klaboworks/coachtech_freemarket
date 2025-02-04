@@ -21,9 +21,6 @@ class ShippingAddressTest extends TestCase
         $this->actingAs($user);
         $this->assertAuthenticatedAs($user);
 
-        $response = $this->get(route('purchase.create', $item->id));
-        $response->assertStatus(200);
-
         // 配送先住所変更画面
         $response = $this->get(route('purchase.edit.address', $item->id));
         $response->assertStatus(200);
@@ -47,8 +44,8 @@ class ShippingAddressTest extends TestCase
         $oldAddress2 = session('_old_input.address2');
 
         // 変更後住所反映確認
-        // 登録処理で渡された住所が表示されているか
-        $response = $this->get(route('purchase.edit.address', $item->id));
+        // 登録処理から渡された住所が購入画面で表示されているか
+        $response = $this->get(route('purchase.create', $item->id));
         $response->assertStatus(200);
         $response->assertSee($oldPostalCode)
             ->assertSee($oldAddress1)
@@ -58,7 +55,7 @@ class ShippingAddressTest extends TestCase
         $this->assertEquals($address1, $oldAddress1);
         $this->assertEquals($address2, $oldAddress2);
 
-        // 商品を購入※登録処理で渡された住所を挿入
+        // 商品を購入※登録処理から渡された住所を挿入
         $response = $this->post(route('purchase.store', $item->id), [
             'user_id' => $user->id,
             'item_id' => $item->id,
@@ -69,7 +66,8 @@ class ShippingAddressTest extends TestCase
         ]);
         $response->assertStatus(302);
 
-        // 購入証明※入力した住所で購入登録されているか
+        // 購入証明
+        // 登録処理から渡された住所->入力した住所で購入登録されているか
         $this->assertDatabaseHas('purchases', [
             'user_id' => $user->id,
             'item_id' => $item->id,
