@@ -1,13 +1,13 @@
 "use-strict";
 {
     // マイページタブ色変え
-    const urlRequest = window.location.href;
-    const pageListed = document.querySelector(".page__sell");
-    const pageBought = document.querySelector(".page__buy");
+    const URL_REQUEST = window.location.href;
+    const LISTED_ITEM_PAGE = document.querySelector(".page__sell");
+    const BOUGHT_ITEM_PAGE = document.querySelector(".page__buy");
 
-    if (urlRequest === "http://localhost/mypage?page=buy") {
-        pageBought.style.color = "red";
+    if (URL_REQUEST === "http://localhost/mypage?page=buy") {
+        BOUGHT_ITEM_PAGE.style.color = "red";
     } else {
-        pageListed.style.color = "red";
+        LISTED_ITEM_PAGE.style.color = "red";
     }
 }

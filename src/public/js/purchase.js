@@ -1,21 +1,20 @@
 "use-strict";
 {
-    const payment = document.getElementById("payment-selector");
-    const selectedPayment = document.getElementById("selected-payment");
-    const paymentMethod = document.getElementById("payment-method");
+    const PAYMENT = document.getElementById("payment-selector");
+    const SELECTED_PAYMENT = document.getElementById("selected-payment");
+    const PAYMENT_METHOD = document.getElementById("payment-method");
 
     function updateSelectedPayment() {
-        const selectedIndex = payment.selectedIndex;
-        const selectedText = payment.options[selectedIndex].text;
-        console.log(selectedText);
-        selectedPayment.textContent = selectedText;
-        paymentMethod.value = selectedIndex;
+        const SELECTED_INDEX = PAYMENT.selectedIndex;
+        const SELECTED_TEXT = PAYMENT.options[SELECTED_INDEX].text;
+        SELECTED_PAYMENT.textContent = SELECTED_TEXT;
+        PAYMENT_METHOD.value = SELECTED_INDEX;
     }
 
-    payment.addEventListener("change", updateSelectedPayment);
+    PAYMENT.addEventListener("change", updateSelectedPayment);
 
-    const hasErrors = document.getElementById("has-errors").value;
-    if (hasErrors === "true") {
+    const HAS_ERRORS = document.getElementById("has-errors").value;
+    if (HAS_ERRORS === "true") {
         updateSelectedPayment();
     }
 }

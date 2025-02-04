@@ -1,11 +1,11 @@
 "use-strict";
 {
-    const keyframes = {
+    const KEYFRAMES = {
         opacity: [1, 0],
         translate: ["0 0", "0 -100%"],
     };
 
-    const options = {
+    const OPTIONS = {
         duration: 1000,
         delay: 1500,
         easing: "ease-out",
@@ -13,10 +13,10 @@
     };
 
     try {
-        const success = document.querySelector(".alert-success");
-        success.animate(keyframes, options);
+        const SUCCESS = document.querySelector(".alert-success");
+        SUCCESS.animate(KEYFRAMES, OPTIONS);
     } catch {
-        const danger = document.querySelector(".alert-danger");
-        danger.animate(keyframes, options);
+        const DANGER = document.querySelector(".alert-danger");
+        DANGER.animate(KEYFRAMES, OPTIONS);
     }
 }

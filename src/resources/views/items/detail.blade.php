@@ -35,7 +35,7 @@ $item_name=$item->item_name
                     {{$item->brand_name ? $item->brand_name : 'no brand'}}
                 </small>
                 <p class="price">
-                    <span>￥</span>{{$item->price}} <span>(税込)</span>
+                    <span>￥</span>{{number_format($item->price)}} <span>(税込)</span>
                 </p>
                 <div class="info__likes-comments">
                     <table class="table__likes-comments text-center">

@@ -1,29 +1,29 @@
 "use-strict";
 {
     document.addEventListener("DOMContentLoaded", function () {
-        const input = document.getElementById("image");
-        const preview = document.getElementById("preview");
-        const frame = document.querySelector(".image-preview");
+        const IMAGE_INPUT = document.getElementById("image");
+        const IMAGE_PREVIEW = document.getElementById("preview");
+        const IMAGE_FRAME = document.querySelector(".image-preview");
 
-        input.addEventListener("change", function (e) {
-            const file = e.target.files[0];
-            const maxSize = 2097152;
+        IMAGE_INPUT.addEventListener("change", function (e) {
+            const FILE = e.target.files[0];
+            const MAX_SIZE = 2097152;
 
-            if (file.size > maxSize) {
+            if (FILE.size > MAX_SIZE) {
                 alert(
                     "ファイルサイズが大きすぎます。2MB以下の画像を選択してください。"
                 );
-                input.value = "";
+                IMAGE_INPUT.value = "";
             }
 
-            if (file && file.size < maxSize) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    preview.src = e.target.result;
-                    preview.style.display = "block";
+            if (FILE && FILE.size < MAX_SIZE) {
+                const READER = new FileReader();
+                READER.onload = function (e) {
+                    IMAGE_PREVIEW.src = e.target.result;
+                    IMAGE_PREVIEW.style.display = "block";
                 };
-                reader.readAsDataURL(file);
-                frame.style = "z-index:1000";
+                READER.readAsDataURL(FILE);
+                IMAGE_FRAME.style = "z-index:1000";
             }
         });
     });

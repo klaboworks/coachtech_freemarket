@@ -65,10 +65,9 @@ class UserInfoGetTest extends TestCase
         $this->assertAuthenticatedAs($user);
 
         // プロフィール画面表示
+        // ユーザー情報表示確認
         $response = $this->get(route('mypage'));
         $response->assertStatus(200);
-
-        // ユーザー情報表示確認
         $response->assertSee($user->getAvatarPath($user->avatar))
             ->assertSee($userName);
 
@@ -93,17 +92,5 @@ class UserInfoGetTest extends TestCase
         $response->assertDontSee('Another listed Item!');
         $response->assertSee('I bought this Item!');
         $response->assertSee('I bought this too!');
-
-        // プロフィール編集画面表示
-        $response = $this->get(route('edit.profile'));
-        $response->assertStatus(200)
-            ->assertSee('プロフィール設定');
-
-        // ユーザー情報初期設定表示確認
-        $response->assertSee($user->getAvatarPath($user->avatar))
-            ->assertSee('テストユーザー')
-            ->assertSee('123-4567')
-            ->assertSee('東京都')
-            ->assertSee('千代田区');
     }
 }

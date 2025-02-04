@@ -34,7 +34,7 @@
                             {{$item->item_name}}
                         </h2>
                         <p class="item-price">
-                            <span>￥</span>{{$item->price}}
+                            <span>￥</span>{{ number_format($item->price) }}
                         </p>
                     </div>
                 </div>
@@ -103,7 +103,7 @@
                     <tbody>
                         <tr>
                             <th>商品代金</th>
-                            <td> <span>￥</span>{{ $item->price }}</td>
+                            <td> <span>￥</span>{{ number_format($item->price) }}</td>
                         </tr>
                         <tr>
                             <th>支払い方法</th>

@@ -100,7 +100,7 @@
 
             <div class="input-unit flex-column">
                 <label for="price" class="input-label">販売価格</label>
-                <input type="text" name="price" inputmode="numeric" value="{{ old('price') }}">
+                <input type="text" id="priceInput" class="price-input" name="price" inputmode="numeric" value="{{ old('price') }}">
                 @error('price')
                 <small class="error-message">
                     {{ $message }}

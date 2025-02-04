@@ -1,17 +1,17 @@
 "use-strict";
 {
     // ハンバーガーメニュー
-    const menuOpen = document.querySelector(".humburger__open");
-    const menuClose = document.querySelector(".humburger__close");
-    const menuPanel = document.querySelector(".humburger-menu__elements");
+    const MENU_OPEN = document.querySelector(".humburger__open");
+    const MENU_CLOSE = document.querySelector(".humburger__close");
+    const MENU_PANEL = document.querySelector(".humburger-menu__elements");
 
-    menuOpen.addEventListener("click", () => {
-        menuPanel.style.transform = "none";
+    MENU_OPEN.addEventListener("click", () => {
+        MENU_PANEL.style.transform = "none";
         document.body.style.overflow = "hidden";
     });
 
-    menuClose.addEventListener("click", () => {
-        menuPanel.style.transform = "translateX(100%)";
+    MENU_CLOSE.addEventListener("click", () => {
+        MENU_PANEL.style.transform = "translateX(100%)";
         document.body.style.overflow = "auto";
     });
 }
