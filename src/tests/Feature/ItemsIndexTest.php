@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 use App\Models\Item;
 use App\Models\User;
@@ -11,55 +13,110 @@ class ItemsIndexTest extends TestCase
     // 全商品を表示する
     public function testDisplayAllItems(): void
     {
-        $allItems = Item::factory(5)->create();
+        $itemsData = [];
+        for ($i = 0; $i < 5; $i++) {
+            $itemImage = UploadedFile::fake()->image('item' . $i . '.jpg');
+            $imagePath = Storage::disk('public')->putFile('item_images', $itemImage);
+
+            $itemsData[] = [
+                'item_image' => $imagePath,
+            ];
+        }
+
+        $allItems = Item::factory(5)->createMany($itemsData);
+
         $response = $this->get(route('items.index'));
         $response->assertStatus(200);
 
         $this->assertEquals(5, $allItems->count());
-        $response
-            ->assertSee($allItems[0]->item_name)
-            ->assertSee($allItems[1]->item_name)
-            ->assertSee($allItems[2]->item_name)
-            ->assertSee($allItems[3]->item_name)
-            ->assertSee($allItems[4]->item_name);
+
+        // アイテム画像とアイテム名が正しく表示されているか
+        foreach ($allItems as $item) {
+            $response->assertSee(asset('storage/' . $item->item_image));
+            $response->assertSee($item->item_name);
+        }
+
+        foreach ($allItems as $item) {
+            Storage::disk('public')->delete($item->item_image);
+        }
     }
 
     // 購入済み商品は「Sold」と表示される
     public function testItemsWithSoldLabel(): void
     {
-        Item::factory()->create(['is_sold' => true]);
+        $itemImage = UploadedFile::fake()->image('item.jpg');
+        $imagePath = Storage::disk('public')->putFile('item_images', $itemImage);
+
+        $item = Item::factory()->create([
+            'item_image' => $imagePath,
+            'is_sold' => true,
+        ]);
 
         $response = $this->get(route('items.index'));
         $response->assertStatus(200);
 
-        $response->assertSee('sold');
+        $response->assertSee(asset('storage/' . $item->item_image));
+        $response->assertSee($item->item_name);
+        $response->assertSee('Sold');
+
+        Storage::disk('public')->delete($imagePath);
     }
 
     // 自分の商品を除外した全商品を取得する
-    public function testDisplayWithoutMyItems(): void
+    public function testDisplayAllWithoutMyItems(): void
     {
         $userA = User::factory()->create();
         $userB = User::factory()->create();
 
-        /** @var \App\Models\User $userA */
-        /** @var \App\Models\User $userB */
-        Item::factory(2)->create(['user_id' => $userA->id]);
-        Item::factory(3)->create(['user_id' => $userB->id]);
+        $itemsDataA = [];
+        for ($i = 0; $i < 2; $i++) {
+            $itemImage = UploadedFile::fake()->image('item' . $i . '_a.jpg'); // a,bを区別
+            $imagePath = Storage::disk('public')->putFile('item_images', $itemImage);
+            $itemsDataA[] = ['item_image' => $imagePath]; // 連想配列で格納
+        }
+
+        $itemsDataB = [];
+        for ($i = 0; $i < 2; $i++) {
+            $itemImage = UploadedFile::fake()->image('item' . $i . '_b.jpg'); // a,bを区別
+            $imagePath = Storage::disk('public')->putFile('item_images', $itemImage);
+            $itemsDataB[] = ['item_image' => $imagePath]; // 連想配列で格納
+        }
+
+        Item::factory(2)->createMany(array_map(function ($data) use ($userA) {
+            return array_merge($data, ['user_id' => $userA->id]);
+        }, $itemsDataA));
+
+
+        Item::factory(2)->createMany(array_map(function ($data) use ($userB) {
+            return array_merge($data, ['user_id' => $userB->id]);
+        }, $itemsDataB));
+
 
         $retrievedItemsA = Item::where('user_id', $userA->id)->get();
         $retrievedItemsB = Item::where('user_id', $userB->id)->get();
 
+        /** @var \App\Models\User $userA */
         $this->actingAs($userA);
         $response = $this->get(route('items.index'));
         $response->assertStatus(200);
 
         // 自分のアイテムは表示されない
-        $response->assertDontSee($retrievedItemsA[0]->item_name);
-        $response->assertDontSee($retrievedItemsA[1]->item_name);
+        foreach ($retrievedItemsA as $retrievedItemA) {
+            $response->assertDontSee($retrievedItemA->item_name);
+            $response->assertDontSee(asset('storage/' . $retrievedItemA->item_image));
+        }
 
         // 自分以外のアイテムは表示される
-        $response->assertSee($retrievedItemsB[0]->item_name);
-        $response->assertSee($retrievedItemsB[1]->item_name);
-        $response->assertSee($retrievedItemsB[2]->item_name);
+        foreach ($retrievedItemsB as $retrievedItemB) {
+            $response->assertSee($retrievedItemB->item_name);
+            $response->assertSee(asset('storage/' . $retrievedItemB->item_image));
+        }
+
+        foreach ($retrievedItemsA as $retrievedItemA) {
+            Storage::disk('public')->delete($retrievedItemA->item_image);
+        }
+        foreach ($retrievedItemsB as $retrievedItemB) {
+            Storage::disk('public')->delete($retrievedItemB->item_image);
+        }
     }
 }

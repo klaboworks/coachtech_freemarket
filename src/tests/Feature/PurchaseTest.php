@@ -2,9 +2,12 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 use App\Models\Item;
+use App\Models\Payment;
 
 class PurchaseTest extends TestCase
 {
@@ -14,7 +17,13 @@ class PurchaseTest extends TestCase
             'https://api.stripe.com/*' => Http::response(['id' => 'mock_session_id', 'url' => 'mock_url'], 200),
         ]);
 
-        $item = Item::factory()->create(['is_sold' => false]);
+        $itemImage = UploadedFile::fake()->image('item.jpg');
+        $imagePath = Storage::disk('public')->putFile('item_images', $itemImage);
+
+        $item = Item::factory()->create([
+            'item_image' => $imagePath,
+            'is_sold' => false
+        ]);
 
         /** @var \App\Models\User $user */
         $user = $this->createUser();
@@ -24,7 +33,7 @@ class PurchaseTest extends TestCase
         $response = $this->get(route('purchase.create', $item->id));
         $response->assertStatus(200);
 
-        $payment = \App\Models\Payment::factory()->create();
+        $payment = Payment::factory()->create();
 
         // 商品を購入
         $response = $this->post(route('purchase.store', $item->id), [
@@ -56,12 +65,16 @@ class PurchaseTest extends TestCase
         // 商品一覧ページへ移動、Soldラベル確認
         $response = $this->get(route('items.index'));
         $response->assertStatus(200);
+        $response->assertSee(asset('storage/' . $item->item_image));
         $response->assertSee($item->item_name);
         $response->assertSee('Sold');
 
         // マイページの購入した商品一覧を確認
         $response = $this->get(route('mypage') . '?page=buy');
         $response->assertStatus(200);
+        $response->assertSee(asset('storage/' . $item->item_image));
         $response->assertSee($item->item_name);
+
+        Storage::disk('public')->delete($imagePath);
     }
 }

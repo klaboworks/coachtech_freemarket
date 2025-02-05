@@ -40,10 +40,13 @@ class ItemFactory extends Factory
     public function configure()
     {
         return $this->afterCreating(function (Item $item) {
-            $categories = Category::factory(2)->create();
-            foreach ($categories as $category) {
+            $categoryNames = ['category1', 'category2'];
+
+            foreach ($categoryNames as $categoryName) {
+                $category = Category::firstOrCreate(['category_name' => $categoryName]);
                 $item->categories()->attach($category->id);
             }
+
             $user = User::inRandomOrder()->first();
             Comment::factory()->create(['item_id' => $item->id, 'user_id' => $user->id]);
         });

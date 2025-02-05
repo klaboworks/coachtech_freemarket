@@ -12,7 +12,6 @@ class ItemDetailTest extends TestCase
     // すべての情報が商品詳細ページに表示されている
     public function testItemInfoDisplayed(): void
     {
-        Storage::fake('public');
         $itemImage = UploadedFile::fake()->image('item.jpg');
         $imagePath = Storage::disk('public')->putFile('item_images', $itemImage);
 
@@ -29,7 +28,7 @@ class ItemDetailTest extends TestCase
 
         $response->assertStatus(200);
         $response
-            ->assertSee($item->getImagePath($item->item_image))
+            ->assertSee(asset('storage/' . $item->item_image))
             ->assertSee($item->item_name)
             ->assertSee($item->brand_name)
             ->assertSee($item->price)
@@ -45,6 +44,8 @@ class ItemDetailTest extends TestCase
             $response->assertSee($comment->name);
             $response->assertSee($comment->pivot->comment);
         }
+
+        Storage::disk('public')->delete($imagePath);
     }
 
     // 複数選択されたカテゴリが商品詳細ページに表示されている
@@ -56,6 +57,7 @@ class ItemDetailTest extends TestCase
         $response = $this->get(route('item.detail', $item->id));
         $response->assertStatus(200);
 
-        $this->assertEquals(2, $item->categories->count());
+        $response->assertSee('category1')
+            ->assertSee('category2');
     }
 }

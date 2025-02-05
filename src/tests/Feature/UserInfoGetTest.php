@@ -15,9 +15,8 @@ class UserInfoGetTest extends TestCase
     public function testGetUserInformation(): void
     {
         // ユーザー画像作成
-        Storage::fake('public');
         $avatar = UploadedFile::fake()->image('avatar.jpg');
-        $imagePath = Storage::disk('public')->putFile('', $avatar);
+        $avatarPath = Storage::disk('public')->putFile('', $avatar);
 
         // ユーザー情報
         $userName = 'テストユーザー';
@@ -27,7 +26,7 @@ class UserInfoGetTest extends TestCase
 
         $user = User::factory()->create([
             'name' => $userName,
-            'avatar' => $imagePath,
+            'avatar' => $avatarPath,
             'postal_code' => $userPostalCode,
             'address1' => $userAddress1,
             'address2' => $userAddress2,
@@ -68,7 +67,7 @@ class UserInfoGetTest extends TestCase
         // ユーザー情報表示確認
         $response = $this->get(route('mypage'));
         $response->assertStatus(200);
-        $response->assertSee($user->getAvatarPath($user->avatar))
+        $response->assertSee(asset('storage/' . $user->avatar))
             ->assertSee($userName);
 
         // 初期ページで出品した商品が表示される
@@ -92,5 +91,7 @@ class UserInfoGetTest extends TestCase
         $response->assertDontSee('Another listed Item!');
         $response->assertSee('I bought this Item!');
         $response->assertSee('I bought this too!');
+
+        Storage::disk('public')->delete($avatarPath);
     }
 }
