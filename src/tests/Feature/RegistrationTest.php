@@ -120,6 +120,6 @@ class RegistrationTest extends TestCase
 
         $response->assertValid();
         $response->assertStatus(200)
-            ->assertViewIs('users.edit');
+            ->assertViewIs('auth.verify-email');
     }
 }

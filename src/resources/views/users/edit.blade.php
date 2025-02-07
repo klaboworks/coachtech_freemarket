@@ -45,6 +45,9 @@ $user=Auth::user();
             <div class="input-unit">
                 <label for="postal_code">郵便番号</label>
                 <input type="text" name="postal_code" value="{{$user->postal_code}}">
+                @error('postal_code')
+                <small class="error-message">{{$message}}</small>
+                @enderror
             </div>
             <div class="input-unit">
                 <label for="address1">住所</label>
