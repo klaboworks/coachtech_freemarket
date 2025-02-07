@@ -24,7 +24,7 @@ class FortifyServiceProvider extends ServiceProvider
         $this->app->instance(RegisterResponse::class, new class implements RegisterResponse {
             public function toResponse($request)
             {
-                return view('users.edit');
+                return view('auth.verify-email');
             }
         });
     }

@@ -6,9 +6,20 @@
 <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
 @endsection
 
+@section('script')
+<script src="{{ asset('js/flash-animation.js') }}" defer></script>
+@endsection
+
 @section('content')
 <section class="verify-email">
     <div class="verify-email__inner text-center">
+
+        @if (session('message'))
+        <div class="alert-success text-center">
+            {{ session('message') }}
+        </div>
+        @endif
+
         <h1 class="page-title verify-title">メール認証を完了してください</h1>
         <div class="message-panel">
             <p>

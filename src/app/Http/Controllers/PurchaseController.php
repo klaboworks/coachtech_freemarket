@@ -12,7 +12,6 @@ use App\Models\Payment;
 use App\Models\Purchase;
 use Stripe\Stripe;
 use Stripe\Checkout\Session;
-use Stripe\Webhook;
 
 class PurchaseController extends Controller
 {
@@ -61,7 +60,7 @@ class PurchaseController extends Controller
         }
     }
 
-    public function soldOut(Request $request)
+    private function soldOut(Request $request)
     {
         $overwrittenData = session('overwritten_data', []);
         $data = array_merge([
