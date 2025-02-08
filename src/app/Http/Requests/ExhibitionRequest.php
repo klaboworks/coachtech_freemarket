@@ -27,7 +27,7 @@ class ExhibitionRequest extends FormRequest
             'item_image' => 'required|mimes:jpeg,jpg,png',
             'categories' => 'required',
             'condition_id' => 'required',
-            'price' => 'required|regex:/^[0-9,]+$/|min:0',
+            'price' => 'required|integer|min:0|max:1000000',
         ];
     }
 
@@ -42,7 +42,9 @@ class ExhibitionRequest extends FormRequest
             'categories.required' => 'カテゴリーを選択してください',
             'condition_id.required' => '商品の状態を選択してください',
             'price.required' => '商品の金額を設定してください',
+            'price.integer' => '商品の金額を数値で設定してください',
             'price.min' => '商品の金額を0円以上で設定してください',
+            'price.max' => '100万円以上は出品できません',
         ];
     }
 }

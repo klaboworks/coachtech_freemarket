@@ -15,7 +15,7 @@
 <section class="sell">
     <div class="sell__inner block-center">
         <h2 class="page-title text-center">商品の出品</h2>
-        <form action="{{route('sell.store')}}" method="post" enctype="multipart/form-data" class="sell-form flex-column">
+        <form action="{{route('sell.store')}}" method="post" enctype="multipart/form-data" id="sell-form" class="sell-form flex-column">
             @csrf
 
             <!-- バリデーションエラー時カテゴリーラベル色変え保持用input -->
@@ -100,7 +100,8 @@
 
             <div class="input-unit flex-column">
                 <label for="price" class="input-label">販売価格</label>
-                <input type="text" id="priceInput" class="price-input" name="price" inputmode="numeric" value="{{ old('price') }}">
+                <input type="text" id="price-input__preview" class="price-input" name="price_preview" inputmode="numeric" value="{{ old('price_preview') }}">
+                <input type="hidden" id="price-input__fix" class="price-input" name="price" value="{{ old('price') }}" readonly>
                 @error('price')
                 <small class="error-message">
                     {{ $message }}

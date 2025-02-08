@@ -19,14 +19,16 @@
     }
 
     // 入力価格３桁でカンマ区切り
-    const PRICE_INPUT = document.getElementById("priceInput");
+    const PRICE_INPUT_PREVIEW = document.getElementById("price-input__preview");
+    const PRICE_INPUT_FIX = document.getElementById("price-input__fix");
 
-    PRICE_INPUT.addEventListener("input", function (event) {
+    PRICE_INPUT_PREVIEW.addEventListener("input", function (event) {
         const INPUT_VALUE = event.target.value.replace(/[^0-9]/g, "");
         const FORMATTED_VALUE = INPUT_VALUE.replace(
             /\B(?=(\d{3})+(?!\d))/g,
             ","
         );
         event.target.value = FORMATTED_VALUE;
+        PRICE_INPUT_FIX.value = Number(FORMATTED_VALUE.replace(/,/g, ""));
     });
 }
