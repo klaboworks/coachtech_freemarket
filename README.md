@@ -2,74 +2,35 @@
 
 フリーマーケットアプリ
 
-## 機能一覧
-
-### ユーザー側
-
-- 会員登録
-- ログイン
-- ログアウト
-- 商品の出品
-- 商品の購入
-- 商品の検索
-- 商品のお気に入り登録
-- 商品のお気に入り削除
-
-## 実行環境
-
-言語：PHP 8.3.12
-フレームワーク：Laravel 11.36.1
-データベース：MySQL
-
-## テーブル設計
-
-## ER 図
-
-# 環境構築
+## 環境構築
 
 ### git をクローン
+`git clone git@github.com:klaboworks/coachtech_freemarket.git`
 
--
-
-### PHP コンテナを生成して起動/ログイン
-
-- `docker-compose up -d --build`
-- `docker-compose exec php bash`
+### Dockerビルド/PHPコンテナログイン
+`docker-compose up -d --build`
+`docker-compose exec php bash`
 
 ### パッケージをインストール
-
-- `composer install`
+`composer install`
 
 ### キーを作成
+`php artisan key:generate`
 
-- `php artisan key:generate`
-
-### マイグレーション+データシーディング
-
-- `php artisan migrate --seed`
-
-### アップロード画像表示機能オン
-
-- `php artisan storage:link`
-
-# 環境変数設定
+## 環境変数設定
 
 ### .env ファイルを作成
-
-- `cp .env.example .env`
+`cp .env.example .env`
 
 ### MAILER 送信設定
-
-- .env ファイルの MAIL の項目を任意の設定に更新
+.env ファイルの MAIL の項目を任意の設定に更新
 
 ### .env ファイのル LOCAL 項目を下記に変更
-
-    APP_LOCALE=ja
-    APP_FALLBACK_LOCALE=ja
-    APP_FAKER_LOCALE=ja_JP
+   APP_LOCALE=ja
+   APP_FALLBACK_LOCALE=ja
+   APP_FAKER_LOCALE=ja_JP
 
 ### .env ファイのル DB 項目を下記に変更
-
     DB_CONNECTION=mysql
     DB_HOST=mysql
     DB_PORT=3306
@@ -82,6 +43,23 @@
     STRIPE_KEY= ここにストライプの公開鍵を入力してください
     STRIPE_SECRET= ここにストライプの秘密鍵を入力してください
 
+### マイグレーション+データシーディング
+`php artisan migrate --seed`
+
+### アップロード画像表示機能オン
+`php artisan storage:link`
+
+## 実行環境
+言語：PHP 8.3.12</br>
+フレームワーク：Laravel 11.40.0</br>
+データベース：MySQL
+
+## ER 図
+![ER図](ER.png)
+
+## URL
+開発環境：http://localhost/
+
 # テスト環境整備
 
 ### テスト用データベース作成
@@ -93,8 +71,9 @@
 - `FLUSH PRIVILEGES;`
 
 ### phpunit.xml 設定
-
-- phpunit.xml を開き、env name="DB_DATABASE"の項目を下記に変更、コメントアウトを外す
+phpunit.xml を開き、env name="DB_DATABASE"の項目を下記に変更、コメントアウトを外す
   <env name="DB_DATABASE" value="test_db"/>
 
 ## 備考
+
+- Laravel11使用のため認証系のバリデーションはFormRequest不使用

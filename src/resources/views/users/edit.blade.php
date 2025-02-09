@@ -17,7 +17,7 @@ $user=Auth::user();
 @section('content')
 <section class="edit">
     <div class="edit__inner">
-        <h1 class="edit-title">プロフィール設定</h1>
+        <h2 class="edit-title">プロフィール設定</h2>
         <form action="{{route('update.profile')}}" method="post" enctype="multipart/form-data" class="edit-form">
             @csrf
             <input type="hidden" name="id" value="{{$user->id}}">

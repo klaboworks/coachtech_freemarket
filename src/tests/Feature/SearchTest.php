@@ -9,9 +9,6 @@ use App\Models\Item;
 
 class SearchTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     */
     public function testSearchItem(): void
     {
         $itemImageA = UploadedFile::fake()->image('itemA.jpg');

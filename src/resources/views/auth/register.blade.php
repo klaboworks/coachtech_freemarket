@@ -9,7 +9,7 @@
 @section('content')
 <section class="register">
     <div class="auth__inner">
-        <h1 class="page-title text-center">会員登録</h1>
+        <h2 class="page-title text-center">会員登録</h2>
         <div class="input-panel">
             <form action="{{route('register')}}" method="post">
                 @csrf

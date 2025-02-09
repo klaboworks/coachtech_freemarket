@@ -20,6 +20,7 @@
             <div class="logo">
                 <a href="{{route('items.index')}}">
                     <img src="{{ asset('images/icons/logo.svg') }}" alt="">
+                    <h1 style="font-size: 1px;color:black;">COACHTECHフリマ</h1>
                 </a>
             </div>
 

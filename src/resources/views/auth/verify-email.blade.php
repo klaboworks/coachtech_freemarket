@@ -20,7 +20,7 @@
         </div>
         @endif
 
-        <h1 class="page-title verify-title">メール認証を完了してください</h1>
+        <h2 class="page-title verify-title">メール認証を完了してください</h2>
         <div class="message-panel">
             <p>
                 ご登録いただいたメールアドレスに認証メールをお送りしております。<br>

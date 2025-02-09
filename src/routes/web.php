@@ -15,7 +15,6 @@ Route::get('/item/{item}', [ItemController::class, 'detail'])->name('item.detail
 
 // メール認証済みユーザールーティング
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/mypage', [UserController::class, 'index'])->name('mypage');
     Route::post('/item/{item}', [ItemController::class, 'like'])->name('like');
     Route::post('/item/comment/{item}', [CommentController::class, 'store'])->name('comment.store');
     Route::get('/purchase/{item}', [PurchaseController::class, 'create'])->name('purchase.create');
@@ -24,6 +23,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/purchase/address/{item}', [PurchaseController::class, 'updateAddress'])->name('purchase.update.address');
     Route::get('/sell', [SellController::class, 'create'])->name('sell.create');
     Route::post('/sell', [SellController::class, 'store'])->name('sell.store');
+    Route::get('/mypage', [UserController::class, 'index'])->name('mypage');
     Route::get('/mypage/profile', [UserController::class, 'edit'])->name('edit.profile');
     Route::post('/mypage/profile', [UserController::class, 'update'])->name('update.profile');
 });

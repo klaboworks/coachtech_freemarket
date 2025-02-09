@@ -9,7 +9,7 @@
 @section('content')
 <section class="login">
     <div class="auth__inner">
-        <h1 class="page-title text-center">ログイン</h1>
+        <h2 class="page-title text-center">ログイン</h2>
         <div class="input-panel">
             <form action="{{route('login')}}" method="post">
                 @csrf

@@ -57,12 +57,10 @@ class Item extends Model
             ->withPivot('comment');
     }
 
-
     public function purchases()
     {
         return $this->belongsToMany(User::class, 'purchases');
     }
-
 
     public function getImagePath($imagePath)
     {
