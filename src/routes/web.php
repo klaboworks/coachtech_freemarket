@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 // ゲストルーティング
-// ログイン時、メール未認証の場合はメール認証画面にリダイレクトします
 Route::get('/', [ItemController::class, 'index'])->name('items.index');
 Route::get('/item/{item}', [ItemController::class, 'detail'])->name('item.detail');
 
