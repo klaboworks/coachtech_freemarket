@@ -109,6 +109,14 @@ class Item extends Model
                 $query->whereHas('purchases', function ($query) {
                     $query->where('user_id', Auth::id());
                 });
+            } elseif ($page == "deal") {
+                $query->whereHas('purchases', function ($query) {
+                    $query->where(function ($q) {
+                        $q->where('user_id', Auth::id())
+                            ->orWhere('seller_id', Auth::id());
+                    })
+                        ->where('deal_done', false);
+                });
             }
         } else {
             $query->where('user_id', '=', Auth::id());

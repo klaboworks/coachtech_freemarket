@@ -67,6 +67,7 @@ class PurchaseController extends Controller
             'user_id' => $request->user_id,
             'item_id' => $request->item_id,
             'payment_id' => $request->payment_id,
+            'seller_id' => $request->seller_id,
             'postal_code' => $request->postal_code,
             'address1' => $request->address1,
             'address2' => $request->address2,

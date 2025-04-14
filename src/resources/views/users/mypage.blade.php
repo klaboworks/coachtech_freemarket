@@ -49,6 +49,12 @@
                         <p class="page__buy">購入した商品</p>
                     </button>
                 </form>
+                <form action="{{route('mypage')}}" method="get">
+                    <input type="hidden" name="page" value="deal">
+                    <button>
+                        <p class="page__deal">取引中の商品</p>
+                    </button>
+                </form>
             </div>
         </div>
         <hr>
@@ -56,13 +62,17 @@
             <div class="items-panel">
                 @foreach($items as $item)
                 <div class="item-unit">
-                    <a href="{{route('item.detail',$item->id)}}" class="item-image">
+                    <a href="{{ route('item.detail',$item->id) }}" class="item-image no-decoration">
                         @if($item->is_sold)
                         <span class="label__sold-out">Sold</span>
                         @endif
                         <img src="{{$item->getImagePath($item->item_image)}}" alt="">
+                        <h2 class="item-name">{{$item->item_name}}</h2>
                     </a>
-                    <h2 class="item-name">{{$item->item_name}}</h2>
+
+                    <!-- 取引が完了されるまでは下記のリンクが親要素のitems-unitいっぱいに広がります -->
+                    <a href="{{ route('purchase.deal.show',$item->id) }}" class="jump-to-deal">取引画面へのリンクが設置されています</a>
+
                 </div>
                 @endforeach
             </div>

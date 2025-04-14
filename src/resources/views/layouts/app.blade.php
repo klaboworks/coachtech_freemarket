@@ -24,6 +24,7 @@
                 </a>
             </div>
 
+            @if (!Route::is('purchase.deal.show'))
             @if (!Route::is('register', 'login'))
             <div>
                 <form action="{{route('items.index')}}" method="get" class="search-bar">
@@ -75,6 +76,7 @@
                     <a href="{{route('sell.create')}}" class="humburger__list-items no-decoration">出品</a>
                 </div>
             </div>
+            @endif
         </div>
     </header>
     @yield('content')

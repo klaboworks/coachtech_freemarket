@@ -1,0 +1,115 @@
+.deal-index {
+    min-width: 180px;
+    padding-top: 2px;
+    background-color: #868686;
+    height: calc(100vh - 56px);
+    width: 25vw;
+    max-width: 320px;
+}
+
+.deal-index > p {
+    color: white;
+    font-size: 20px;
+}
+
+.deal-detail {
+    width: 100%;
+    position: relative;
+}
+
+.deal-detail__heading {
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 2vw 2px;
+}
+
+.heading-left {
+    align-items: center;
+    gap: 2vw;
+}
+
+.user-avater__frame {
+    max-width: 64px;
+    border-radius: 50%;
+    border: solid 1px #868686;
+    background-color: aquamarine;
+}
+
+.user-avater__frame--small {
+    max-width: 56px;
+    border-radius: 50%;
+    border: solid 1px #868686;
+    background-color: aquamarine;
+}
+
+.user-avater__frame > img,
+.user-avater__frame--small > img {
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+    width: 100%;
+    object-fit: cover;
+}
+
+.item-row {
+    gap: 2vw;
+    padding: 20px 2vw;
+}
+
+.item-image__frame {
+    max-width: 180px;
+}
+
+.item-image__frame > img {
+    aspect-ratio: 1/1;
+    width: 100%;
+    object-fit: cover;
+}
+
+.item-description {
+    background-color: rgb(4, 124, 124);
+    justify-content: space-evenly;
+}
+
+.all-messages {
+    height: 50vh;
+    overflow: scroll;
+}
+
+.deal-message {
+    position: absolute;
+    width: 100%;
+    bottom: 8px;
+    padding: 2px 2vw;
+}
+
+.message-form {
+    gap: 1vw;
+}
+
+.message-form > input {
+    flex: 1;
+    padding: 0 1vw;
+}
+
+.btn__deal-done {
+    height: 40px;
+    padding: 0 16px;
+    color: white;
+    background-color: #ec8883;
+    border: none;
+    border-radius: 20px;
+}
+
+.btn__image-select {
+    height: 40px;
+    line-height: 32px;
+    padding: 0 16px;
+    color: #e96057;
+    border: 2px solid #e96057;
+    border-radius: 8px;
+}
+
+.btn__send-message {
+    background-color: transparent;
+    border: none;
+}

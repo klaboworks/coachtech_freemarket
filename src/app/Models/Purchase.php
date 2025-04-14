@@ -13,8 +13,19 @@ class Purchase extends Model
         'user_id',
         'item_id',
         'payment_id',
+        'seller_id',
         'postal_code',
         'address1',
         'address2'
     ];
+
+    public function buyer()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function seller()
+    {
+        return $this->belongsTo(User::class, 'seller_id');
+    }
 }

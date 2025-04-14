@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\DealController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\SellController;
@@ -23,6 +24,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/purchase/address/{item}', [PurchaseController::class, 'updateAddress'])->name('purchase.update.address');
     Route::get('/sell', [SellController::class, 'create'])->name('sell.create');
     Route::post('/sell', [SellController::class, 'store'])->name('sell.store');
+    Route::get('/purchase/deal/{item}', [DealController::class, 'show'])->name('purchase.deal.show');
+    Route::post('/purchase/deal/{item}', [DealController::class, 'store'])->name('purchase.deal.store');
     Route::get('/mypage', [UserController::class, 'index'])->name('mypage');
     Route::get('/mypage/profile', [UserController::class, 'edit'])->name('edit.profile');
     Route::post('/mypage/profile', [UserController::class, 'update'])->name('update.profile');

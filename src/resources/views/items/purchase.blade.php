@@ -17,6 +17,7 @@
             @csrf
             <input type="hidden" name="user_id" value="{{ Auth::id() }}">
             <input type="hidden" name="item_id" value="{{ $item->id }}">
+            <input type="hidden" name="seller_id" value="{{ $item->user_id }}">
 
             <!-- Stripe決済画面振り分け用インプット -->
             <input type="hidden" id="payment-method" name="payment_method" value="{{ old('payment_method') }}">
