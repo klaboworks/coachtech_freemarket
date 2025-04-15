@@ -13,73 +13,121 @@
 }
 
 .deal-detail {
-    width: 100%;
     position: relative;
+    flex-grow: 1;
+    height: calc(100vh - 56px);
+    justify-content: space-between;
+}
+
+.detail-container {
+    height: 100%;
+    justify-content: space-between;
 }
 
 .deal-detail__heading {
     justify-content: space-between;
     align-items: center;
-    padding: 6px 2vw 2px;
+    padding: 6px 2vw;
+    height: 10vh;
+    border-bottom: solid 1px #868686;
 }
 
 .heading-left {
     align-items: center;
+    height: 100%;
     gap: 2vw;
 }
 
 .user-avater__frame {
-    max-width: 64px;
+    height: 100%;
     border-radius: 50%;
     border: solid 1px #868686;
-    background-color: aquamarine;
 }
 
 .user-avater__frame--small {
     max-width: 56px;
     border-radius: 50%;
     border: solid 1px #868686;
-    background-color: aquamarine;
 }
 
 .user-avater__frame > img,
 .user-avater__frame--small > img {
+    height: 100%;
     border-radius: 50%;
     aspect-ratio: 1/1;
-    width: 100%;
     object-fit: cover;
 }
 
 .item-row {
+    height: 24vh;
     gap: 2vw;
     padding: 20px 2vw;
+    border-bottom: solid 1px #868686;
 }
 
 .item-image__frame {
+    align-items: center;
     max-width: 180px;
 }
 
 .item-image__frame > img {
     aspect-ratio: 1/1;
-    width: 100%;
+    height: 100%;
     object-fit: cover;
 }
 
 .item-description {
-    background-color: rgb(4, 124, 124);
     justify-content: space-evenly;
 }
 
-.all-messages {
-    height: 50vh;
-    overflow: scroll;
+.item-name {
+    font-size: 40px;
+}
+
+.message-container {
+    padding: 12px 2vw;
+    flex-grow: 1;
+    overflow-y: scroll;
+    gap: 8px;
+}
+
+.message-right {
+    text-align: right;
+    margin-bottom: 8px;
+    align-self: flex-end;
+    width: fit-content;
+    max-width: 75%;
+}
+
+.message-left {
+    text-align: left;
+    margin-bottom: 8px;
+    align-self: flex-start;
+    width: fit-content;
+    max-width: 75%;
+}
+
+.user-appearance {
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 8px;
+}
+
+.message-right > .user-appearance {
+    flex-direction: row-reverse;
+}
+
+.message-box {
+    word-break: break-word;
+    display: inline-block;
+    background-color: #d9d9d9;
+    padding: 8px 12px;
+    border-radius: 8px;
 }
 
 .deal-message {
-    position: absolute;
     width: 100%;
-    bottom: 8px;
-    padding: 2px 2vw;
+    padding: 8px 2vw;
 }
 
 .message-form {
