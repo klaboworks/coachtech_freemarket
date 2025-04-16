@@ -68,6 +68,9 @@
                         <p>{{$message->seller->name}}</p>
                     </div>
                     @endif
+                    <div class="added-image">
+                        <img src="{{$message->getSentImage($message->additional_image)}}" alt="">
+                    </div>
                     <p>
                         <span class="message-box"> {{$message->deal_message}}</span>
                     </p>

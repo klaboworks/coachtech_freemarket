@@ -32,10 +32,21 @@ class DealController extends Controller
 
     public function store(Request $request)
     {
-        Deal::create($request->all());
+        $data = [
+            'purchase_id' => $request->purchase_id,
+            'buyer_id' => $request->buyer_id,
+            'seller_id' => $request->seller_id,
+            'deal_message' => $request->deal_message,
+        ];
 
-        // リダイレクト先のルート名が 'purchase.deal.show' で、ItemモデルのIDを渡したい場合
-        // 前の処理で保存した $deal に関連する item_id があると仮定
+        if ($request->hasFile('additional_image')) {
+            $image = $request->file('additional_image');
+            $path = $image->store('deal_images', 'public');
+            $data['additional_image'] = $path;
+        }
+
+        Deal::create($data);
+
         return redirect()->route('purchase.deal.show', ['item' => $request->route('item')]);
     }
 }

@@ -11,7 +11,7 @@ class Deal extends Model
         "buyer_id",
         "seller_id",
         "deal_message",
-        "additinal_image",
+        "additional_image",
     ];
 
     public function buyer()
@@ -22,5 +22,12 @@ class Deal extends Model
     public function seller()
     {
         return $this->belongsTo(User::class, 'seller_id');
+    }
+
+    public function getSentImage($imagePath)
+    {
+        if (file_exists(storage_path('app/public/' . $imagePath))) {
+            return asset('storage/' . $imagePath);
+        }
     }
 }

@@ -117,6 +117,17 @@
     flex-direction: row-reverse;
 }
 
+.added-image {
+    max-width: 320px;
+}
+
+.added-image > img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
 .message-box {
     word-break: break-word;
     display: inline-block;
