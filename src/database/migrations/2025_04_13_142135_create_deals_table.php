@@ -12,10 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('deals', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('purchase_id')->constrained()->cascadeOnDelete();
             $table->integer('buyer_id')->nullable();
             $table->integer('seller_id')->nullable();
-            $table->string('deal_message');
+            $table->text('deal_message');
             $table->string('additional_image')->nullable();
             $table->timestamps();
         });

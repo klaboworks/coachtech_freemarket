@@ -26,6 +26,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/sell', [SellController::class, 'store'])->name('sell.store');
     Route::get('/purchase/deal/{item}', [DealController::class, 'show'])->name('purchase.deal.show');
     Route::post('/purchase/deal/{item}', [DealController::class, 'store'])->name('purchase.deal.store');
+    Route::patch('/purchase/deal/{item}/update', [DealController::class, 'update'])->name('purchase.deal.update');
+    Route::delete('/purchase/deal/{item}/delete', [DealController::class, 'destroy'])->name('purchase.deal.delete');
     Route::get('/mypage', [UserController::class, 'index'])->name('mypage');
     Route::get('/mypage/profile', [UserController::class, 'edit'])->name('edit.profile');
     Route::post('/mypage/profile', [UserController::class, 'update'])->name('update.profile');

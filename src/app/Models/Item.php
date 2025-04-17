@@ -62,6 +62,11 @@ class Item extends Model
         return $this->belongsToMany(User::class, 'purchases');
     }
 
+    public function sales()
+    {
+        return $this->hasMany(Purchase::class, 'item_id');
+    }
+
     public function getImagePath($imagePath)
     {
         if (!$imagePath) {

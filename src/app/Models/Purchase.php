@@ -19,6 +19,11 @@ class Purchase extends Model
         'address2'
     ];
 
+    public function item()
+    {
+        return $this->belongsTo(Item::class);
+    }
+
     public function buyer()
     {
         return $this->belongsTo(User::class, 'user_id');

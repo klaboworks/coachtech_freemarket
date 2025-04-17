@@ -15,4 +15,15 @@ class ItemPolicy
         }
         return Response::allow();
     }
+
+    public function checkRelatedUsers(User $user, Item $item): Response
+    {
+        foreach ($item->sales as $purchase) {
+            if ($user->id == $purchase->user_id || $user->id == $purchase->seller_id) {
+            }
+            return Response::allow();
+        }
+
+        return Response::deny('No Rights');
+    }
 }
