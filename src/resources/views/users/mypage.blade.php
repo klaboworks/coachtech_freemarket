@@ -71,7 +71,7 @@
                     </a>
 
                     <!-- 取引が完了されるまでは下記のリンクが親要素のitems-unitいっぱいに広がります -->
-                    <a href="{{ route('purchase.deal.show',$item->id) }}" class="jump-to-deal">取引画面へのリンクが設置されています</a>
+                    <a href="{{ route('purchase.deal.show',$item->id) }}" class="jump-to-deal"></a>
 
                 </div>
                 @endforeach

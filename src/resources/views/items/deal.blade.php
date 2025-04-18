@@ -140,6 +140,7 @@
                 <img src="" id="preview" style="display:none;" alt=" プレビュー">
             </div>
 
+            <!-- メッセージ送信エリア -->
             <div class="deal-message">
                 @error('deal_message')
                 <small class="error-message">
@@ -157,9 +158,12 @@
                     <input type="hidden" name="purchase_id" value="{{ $purchase->id }}">
                     @if ($isBuyer)
                     <input type="hidden" name="buyer_id" value="{{ $purchase->buyer->id }}">
+                    <input type="hidden" name="receiver_id" value="{{ $purchase->seller->id }}">
                     @elseif ($isSeller)
                     <input type="hidden" name="seller_id" value="{{ $purchase->seller->id }}">
+                    <input type="hidden" name="receiver_id" value="{{ $purchase->buyer->id }}">
                     @endif
+                    <input type="hidden" name="sender_id" value="{{ Auth::id() }}">
                     <input type="text" name="deal_message" id="message-input" data-persist-key="{{$item->id}}" value="{{ old('deal_message') }}" placeholder="取引メッセージを記入してください">
                     <label class="btn__image-select input-image">画像を追加
                         <input type="file" id="image" name="additional_image" style="display:none;">

@@ -27,7 +27,14 @@ class DealController extends Controller
 
             $messages = collect();
             if ($purchases->isNotEmpty()) {
-                $messages = Deal::where('purchase_id', $purchases->first()->id)->get();
+                $purchase = $purchases->first();
+                $messages = Deal::where('purchase_id', $purchase->id)->get();
+
+                // 現在ログインしているユーザーが受信した未読メッセージを既読にする (sender_idとreceiver_idを使用)
+                Deal::where('purchase_id', $purchase->id)
+                    ->where('receiver_id', Auth::id())
+                    ->whereNull('read_at')
+                    ->update(['read_at' => now()]);
             }
 
             $isBuyer = $purchases->contains(function ($purchase) {
@@ -54,6 +61,8 @@ class DealController extends Controller
             'purchase_id' => $request->purchase_id,
             'buyer_id' => $request->buyer_id,
             'seller_id' => $request->seller_id,
+            'sender_id' => $request->sender_id,
+            'receiver_id' => $request->receiver_id,
             'deal_message' => $request->deal_message,
         ];
 

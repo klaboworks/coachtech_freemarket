@@ -10,9 +10,17 @@ class Deal extends Model
         "purchase_id",
         "buyer_id",
         "seller_id",
+        "sender_id",
+        "receiver_id",
         "deal_message",
         "additional_image",
+        'read_at',
     ];
+
+    public function purchase()
+    {
+        return $this->belongsTo(Purchase::class);
+    }
 
     public function buyer()
     {
@@ -22,6 +30,16 @@ class Deal extends Model
     public function seller()
     {
         return $this->belongsTo(User::class, 'seller_id');
+    }
+
+    public function sender()
+    {
+        return $this->belongsTp(User::class, 'sender_id');
+    }
+
+    public function receiver()
+    {
+        return $this->belongsTp(User::class, 'receiver_id');
     }
 
     public function getSentImage($imagePath)
