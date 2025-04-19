@@ -90,4 +90,19 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->receivedDeals()->whereNull('read_at')->count();
     }
+
+    public function ratings($ratedUser)
+    {
+        $ratings = $this->hasMany(Rating::class, 'rated_user_id')
+            ->where('rated_user_id', $ratedUser)
+            ->get();
+
+        if ($ratings->isNotEmpty()) {
+            $totalRating = $ratings->sum('rating');
+            $average = $totalRating / $ratings->count();
+            return round($average);
+        }
+
+        return 0;
+    }
 }

@@ -29,9 +29,14 @@
                         <img src="{{Auth::user()->getAvatarPath(Auth::user()->avatar)}}" alt="">
                     </div>
                 </div>
-                <p class="user-name">
-                    {{Auth::user()->name}}
-                </p>
+                <div class="flex-column">
+                    <p class="user-name">
+                        {{Auth::user()->name}}
+                    </p>
+                    @if( Auth::user()->ratings(Auth::id()) > 0 )
+                    <p class="star-rating" data-average-rating="{{ Auth::user()->ratings(Auth::id()) }}"> </p>
+                    @endif
+                </div>
                 <div class="edit-profile">
                     <a href="{{route('edit.profile')}}" class="no-decoration">プロフィールを編集</a>
                 </div>
@@ -79,11 +84,14 @@
                         {{$deal->getUnreadDealMessages(Auth::id())}}
                     </span>
                     @endif
-                    @endforeach
 
                     <!-- 取引が完了されるまでは下記のリンクが親要素のitems-unitいっぱいに広がります -->
+                    @if(request()->query('page') === 'deal')
+                    @if($deal->deal_done == 0 || $deal->seller_rated == 0)
                     <a href="{{ route('purchase.deal.show',$item->id) }}" class="jump-to-deal"></a>
-
+                    @endif
+                    @endif
+                    @endforeach
                 </div>
                 @endforeach
             </div>

@@ -1,5 +1,5 @@
-"use-strict";
-{
+"use strict";
+(() => {
     // メッセージ編集パネル
     const EDIT_BUTTONS = document.querySelectorAll(".message-operation__edit");
     const UPDATE_PANELS = document.querySelectorAll(".message-change__edit");
@@ -7,14 +7,20 @@
         ".btn__cancel-update"
     );
 
-    for (let i = 0; i < EDIT_BUTTONS.length; i++) {
-        EDIT_BUTTONS[i].addEventListener("click", () => {
-            UPDATE_PANELS[i].classList.remove("hide-element");
+    EDIT_BUTTONS.forEach((button, index) => {
+        button.addEventListener("click", () => {
+            if (UPDATE_PANELS[index]) {
+                UPDATE_PANELS[index].classList.remove("hide-element");
+            }
         });
-        CANCEL_EDIT_BUTTONS[i].addEventListener("click", () => {
-            UPDATE_PANELS[i].classList.add("hide-element");
-        });
-    }
+        if (CANCEL_EDIT_BUTTONS[index]) {
+            CANCEL_EDIT_BUTTONS[index].addEventListener("click", () => {
+                if (UPDATE_PANELS[index]) {
+                    UPDATE_PANELS[index].classList.add("hide-element");
+                }
+            });
+        }
+    });
 
     // メッセージ削除パネル
     const DELETE_BUTTONS = document.querySelectorAll(
@@ -25,17 +31,23 @@
         ".btn__cancel-delete"
     );
 
-    for (let i = 0; i < EDIT_BUTTONS.length; i++) {
-        DELETE_BUTTONS[i].addEventListener("click", () => {
-            DELETE_PANELS[i].classList.remove("hide-element");
+    DELETE_BUTTONS.forEach((button, index) => {
+        button.addEventListener("click", () => {
+            if (DELETE_PANELS[index]) {
+                DELETE_PANELS[index].classList.remove("hide-element");
+            }
         });
-        CANCEL_DELETE_BUTTONS[i].addEventListener("click", () => {
-            DELETE_PANELS[i].classList.add("hide-element");
-        });
-    }
+        if (CANCEL_DELETE_BUTTONS[index]) {
+            CANCEL_DELETE_BUTTONS[index].addEventListener("click", () => {
+                if (DELETE_PANELS[index]) {
+                    DELETE_PANELS[index].classList.add("hide-element");
+                }
+            });
+        }
+    });
 
-    // 入力メッセージ保持機能
     document.addEventListener("DOMContentLoaded", function () {
+        // 入力メッセージ保持機能
         const INPUT_ELEMENTS = document.querySelectorAll(
             "input[data-persist-key]"
         );
@@ -48,24 +60,41 @@
             )}_${PERSIST_KEY}`;
             const STORED_VALUE = sessionStorage.getItem(STORAGE_KEY);
 
-            // sessionStorage に値が存在する場合、input 要素に設定
             if (STORED_VALUE) {
                 input.value = STORED_VALUE;
             }
 
-            // input 要素の値が変更されたら sessionStorage に保存
             input.addEventListener("change", function () {
                 sessionStorage.setItem(STORAGE_KEY, this.value);
             });
 
-            // 親の form 要素の submit イベントを監視
             const FORM_ELEMENT = input.closest("form");
             if (FORM_ELEMENT) {
                 FORM_ELEMENT.addEventListener("submit", function () {
-                    // フォームが送信されたら、対応する sessionStorage の値を削除
                     sessionStorage.removeItem(STORAGE_KEY);
                 });
             }
         });
+
+        // ユーザー評価機能
+        const stars = document.querySelectorAll(".star");
+        const ratingValueInput = document.getElementById("rating-value");
+
+        stars.forEach((star) => {
+            star.addEventListener("click", function () {
+                const clickedRating = parseInt(this.dataset.rating);
+
+                stars.forEach((s) => {
+                    const starRating = parseInt(s.dataset.rating);
+                    if (starRating <= clickedRating) {
+                        s.classList.add("active");
+                    } else {
+                        s.classList.remove("active");
+                    }
+                });
+
+                ratingValueInput.value = clickedRating;
+            });
+        });
     });
-}
+})();

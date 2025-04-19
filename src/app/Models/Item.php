@@ -117,10 +117,19 @@ class Item extends Model
             } elseif ($page == "deal") {
                 $query->whereHas('purchases', function ($query) {
                     $query->where(function ($q) {
-                        $q->where('user_id', Auth::id())
-                            ->orWhere('seller_id', Auth::id());
+                        $q->where('user_id', Auth::id()) // 購入者
+                            ->orWhere('seller_id', Auth::id()); // 出品者
                     })
-                        ->where('deal_done', false);
+                        ->where(function ($q) {
+                            // 取引中で、まだ両者が評価を終えていないもの
+                            $q->where('deal_done', false)
+                                ->orWhere(function ($sq) {
+                                    // または、deal_done が true だが出品者がまだ評価していないもの（出品者側のみ表示）
+                                    $sq->where('deal_done', true)
+                                        ->where('seller_id', Auth::id()) // 出品者自身の取引
+                                        ->where('seller_rated', false);
+                                });
+                        });
                 });
             }
         } else {

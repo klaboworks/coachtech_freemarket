@@ -17,7 +17,8 @@ return new class extends Migration
             $table->foreignId('item_id')->constrained()->cascadeOnDelete();
             $table->foreignId('payment_id')->constrained()->cascadeOnDelete();
             $table->foreignId('seller_id')->constrained('users')->cascadeOnDelete();
-            $table->boolean('deal_done')->default(false);
+            $table->boolean('deal_done')->default(false)->comment('購入者が取引を終了したかどうか');
+            $table->boolean('seller_rated')->default(false)->comment('出品者が購入者を評価済みかどうか');
             $table->char('postal_code');
             $table->string('address1');
             $table->string('address2');

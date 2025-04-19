@@ -26,7 +26,7 @@
         @endif
     </div>
     @foreach($purchases as $purchase)
-    <div class=" deal-detail">
+    <div class="deal-detail">
         <div class="detail-container flex-column">
             <div class="deal-detail__heading flex-row">
                 <div class="heading-left flex-row">
@@ -44,8 +44,12 @@
                 </div>
                 @if ($isBuyer)
                 <div class="heading-right">
-                    <form action="">
-                        <button class="btn__deal-done">取引を完了する</button>
+                    <form action="{{ route('purchase.deal.done',$item->id) }}" method="post">
+                        @method('patch')
+                        @csrf
+                        <input type="hidden" name="purchase_id" value="{{ $purchase->id }}">
+                        <input type="hidden" name="deal_done" value="1">
+                        <button class=" btn__deal-done">取引を完了する</button>
                     </form>
                 </div>
                 @endif
@@ -114,6 +118,7 @@
                         </form>
                     </div>
                 </div>
+
                 <!-- メッセージ削除パネル -->
                 <div class="message-change__delete hide-element">
                     <div class="message-change__panel">
@@ -174,6 +179,43 @@
                 </form>
             </div>
         </div>
+
+        @if($purchase->deal_done == 1)
+        <div class="rating">
+            <div class="rating-panel">
+                <div class="rating-area">
+                    <p class="rating-area__heading">取引が完了しました。</p>
+                </div>
+                <hr>
+                @php
+                $rateUserId = $isBuyer ? $purchase->seller_id : $purchase->user_id;
+                @endphp
+
+                <form action="{{ $isBuyer ? route('seller.rate', $purchase->id) : route('buyer.rate', $purchase->id) }}" method="post">
+                    @csrf
+                    <input type="hidden" name="rated_user_id" value="{{ $rateUserId }}">
+                    <input type="hidden" name="purchase_id" value="{{ $purchase->id }}">
+                    <input type="hidden" name="role" value="{{ $isBuyer ? 'buyer' : 'seller' }}">
+                    <div class="rating-area">
+                        <small class="rating-area__body">今回の取引相手はどうでしたか？</small>
+                        <div class="rating-container flex-row">
+                            <span class="star" data-rating="1">&#9733;</span>
+                            <span class="star" data-rating="2">&#9733;</span>
+                            <span class="star" data-rating="3">&#9733;</span>
+                            <span class="star" data-rating="4">&#9733;</span>
+                            <span class="star" data-rating="5">&#9733;</span>
+                            <input type="hidden" name="rating" id="rating-value" value="0">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="rating-area">
+                        <button type="submit">送信する</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+        @endif
     </div>
     @endforeach
 </section>

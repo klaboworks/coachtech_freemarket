@@ -58,6 +58,21 @@
     font-weight: bold;
 }
 
+.star-rating {
+    display: inline-block;
+    font-size: 1.5em; /* 星のサイズ調整 */
+}
+
+.star {
+    color: #ccc; /* グレーの星 */
+    display: inline-block;
+    margin-right: 0.2em; /* 星間のスペース */
+}
+
+.star.active {
+    color: gold; /* 黄色の星 */
+}
+
 .edit-profile > a {
     font-weight: bold;
     padding: 8px 24px;
@@ -111,7 +126,6 @@
 }
 
 .jump-to-deal {
-    display: none;
     position: absolute;
     top: 0;
     left: 0;

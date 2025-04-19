@@ -26,7 +26,7 @@ class UserController extends Controller
                     ->get()
                     ->flatMap(function ($purchase) {
                         return $purchase->deals()
-                            ->where('receiver_id', Auth::id()) // 受信者がログインユーザーである Deal のみ
+                            ->where('receiver_id', Auth::id())
                             ->pluck('created_at');
                     })
                     ->max();

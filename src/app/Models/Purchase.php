@@ -14,6 +14,8 @@ class Purchase extends Model
         'item_id',
         'payment_id',
         'seller_id',
+        'deal_done',
+        'seller_rated',
         'postal_code',
         'address1',
         'address2'
@@ -45,5 +47,10 @@ class Purchase extends Model
             ->where('receiver_id', $userId)
             ->whereNull('read_at')
             ->count();
+    }
+
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class);
     }
 }

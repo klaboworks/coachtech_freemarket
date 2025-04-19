@@ -10,6 +10,7 @@ use App\Http\Requests\DealRequest;
 use App\Models\Deal;
 use App\Models\Item;
 use App\Models\Purchase;
+use App\Models\Rating;
 
 class DealController extends Controller
 {
@@ -89,5 +90,53 @@ class DealController extends Controller
     {
         Deal::find($request->message_id)->delete();
         return redirect()->route('purchase.deal.show', ['item' => $request->route('item')]);
+    }
+
+    public function dealDone(Request $request)
+    {
+        $deal_done = $request->only(['deal_done']);
+        Purchase::find($request->purchase_id)->update($deal_done);
+
+        return redirect()->route('purchase.deal.show', ['item' => $request->route('item')]);
+    }
+
+    public function rateSeller(Request $request, Purchase $purchase)
+    {
+        $request->validate([
+            'rating' => 'required|integer|min:1|max:5',
+        ]);
+
+        $rating = new Rating();
+        $rating->rater_id = Auth::id(); // 評価を行ったユーザー（購入者）
+        $rating->rated_user_id = $purchase->seller_id; // 評価されたユーザー（出品者）
+        $rating->purchase_id = $purchase->id;
+        $rating->rating = $request->rating;
+        $rating->role = 'buyer'; // 評価者の役割
+        $rating->save();
+
+        // 購入者が評価したので deal_done を true に更新
+        $purchase->update(['deal_done' => true]);
+
+        return redirect()->route('items.index');
+    }
+
+    public function rateBuyer(Request $request, Purchase $purchase)
+    {
+        $request->validate([
+            'rating' => 'required|integer|min:1|max:5',
+        ]);
+
+        $rating = new Rating();
+        $rating->rater_id = Auth::id(); // 評価を行ったユーザー（出品者）
+        $rating->rated_user_id = $purchase->user_id; // 評価されたユーザー（購入者）
+        $rating->purchase_id = $purchase->id;
+        $rating->rating = $request->rating;
+        $rating->role = 'seller'; // 評価者の役割
+        $rating->save();
+
+        // 出品者が評価したので seller_rated を true に更新
+        $purchase->update(['seller_rated' => true]);
+
+        return redirect()->route('items.index');
     }
 }

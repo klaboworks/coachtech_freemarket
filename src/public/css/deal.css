@@ -231,6 +231,57 @@
     word-break: break-all;
 }
 
+.rating {
+    background-color: transparent;
+    position: absolute;
+    inset: 0;
+}
+
+.rating-panel {
+    width: 56%;
+    max-width: 320px;
+    background-color: #fdfde6;
+    border: solid 1px #868686;
+    border-radius: 8px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.rating-area {
+    padding: 8px 16px;
+}
+
+.rating-area__heading {
+    font-size: 24px;
+}
+
+.rating-area__body {
+    color: #868686;
+    font-style: 16px;
+}
+
+.rating-container {
+    justify-content: space-between;
+}
+
+.star {
+    font-size: 3.5em;
+    color: #ccc; /* グレーの星 */
+    cursor: pointer;
+    user-select: none; /* 選択無効 */
+}
+
+.star.active {
+    color: gold; /* 黄色の星 */
+}
+
+.rating-area button {
+    display: block;
+    margin-left: auto;
+}
+
 .btn__deal-done {
     height: 40px;
     padding: 0 16px;
