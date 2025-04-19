@@ -54,6 +54,9 @@
                     <button>
                         <p class="page__deal">取引中の商品</p>
                     </button>
+                    @if (auth()->check() && auth()->user()->unreadDealsCount() > 0)
+                    <span class="message-badge">{{ auth()->user()->unreadDealsCount() }}</span>
+                    @endif
                 </form>
             </div>
         </div>
@@ -69,6 +72,14 @@
                         <img src="{{$item->getImagePath($item->item_image)}}" alt="">
                         <h2 class="item-name">{{$item->item_name}}</h2>
                     </a>
+                    <!-- アイテム別未読メッセージ表示 -->
+                    @foreach($item->sales as $deal)
+                    @if(request()->is('mypage') && request()->query('page') === 'deal' && $deal->getUnreadDealMessages(Auth::id()) > 0)
+                    <span class="message-badge--round">
+                        {{$deal->getUnreadDealMessages(Auth::id())}}
+                    </span>
+                    @endif
+                    @endforeach
 
                     <!-- 取引が完了されるまでは下記のリンクが親要素のitems-unitいっぱいに広がります -->
                     <a href="{{ route('purchase.deal.show',$item->id) }}" class="jump-to-deal"></a>

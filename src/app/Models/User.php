@@ -61,6 +61,11 @@ class User extends Authenticatable implements MustVerifyEmail
         $this->hasMany(Comment::class);
     }
 
+    public function purchases()
+    {
+        return $this->hasMany(Purchase::class);
+    }
+
     public function getAvatarPath($avatarPath)
     {
         if (!$avatarPath) {
@@ -74,5 +79,15 @@ class User extends Authenticatable implements MustVerifyEmail
         if (file_exists(storage_path('app/public/' . $avatarPath))) {
             return asset('storage/' . $avatarPath);
         }
+    }
+
+    public function receivedDeals()
+    {
+        return $this->hasMany(Deal::class, 'receiver_id');
+    }
+
+    public function unreadDealsCount()
+    {
+        return $this->receivedDeals()->whereNull('read_at')->count();
     }
 }

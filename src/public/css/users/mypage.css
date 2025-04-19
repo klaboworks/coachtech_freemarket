@@ -93,6 +93,23 @@
     position: relative;
 }
 
+.message-badge {
+    padding: 0 8px 2px;
+    color: white;
+    background-color: #e7300e;
+    border-radius: 8px;
+}
+
+.message-badge--round {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    padding: 0 8px 2px;
+    color: white;
+    background-color: #e7300e;
+    border-radius: 50%;
+}
+
 .jump-to-deal {
     display: none;
     position: absolute;

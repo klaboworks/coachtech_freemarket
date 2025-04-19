@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Item;
+use App\Models\User;
 use App\Http\Requests\ProfileRequest;
 
 class UserController extends Controller
@@ -14,6 +15,26 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $items = Item::Mypage($request->page)->get();
+
+        if ($request->page == 'deal') {
+            $items = $items->sortByDesc(function ($item) {
+                $latestDealCreatedAt = $item->purchases()
+                    ->where(function ($query) {
+                        $query->where('user_id', Auth::id())
+                            ->orWhere('seller_id', Auth::id());
+                    })
+                    ->get()
+                    ->flatMap(function ($purchase) {
+                        return $purchase->deals()
+                            ->where('receiver_id', Auth::id()) // 受信者がログインユーザーである Deal のみ
+                            ->pluck('created_at');
+                    })
+                    ->max();
+
+                return $latestDealCreatedAt ?? Carbon::create(-9999, 1, 1, 0, 0, 0);
+            });
+        }
+
         return view('users.mypage', compact('items'));
     }
 

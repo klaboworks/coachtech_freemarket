@@ -34,12 +34,12 @@ class Deal extends Model
 
     public function sender()
     {
-        return $this->belongsTp(User::class, 'sender_id');
+        return $this->belongsTo(User::class, 'sender_id');
     }
 
     public function receiver()
     {
-        return $this->belongsTp(User::class, 'receiver_id');
+        return $this->belongsTo(User::class, 'receiver_id');
     }
 
     public function getSentImage($imagePath)

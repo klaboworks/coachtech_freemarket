@@ -38,4 +38,12 @@ class Purchase extends Model
     {
         return $this->hasMany(Deal::class);
     }
+
+    public function getUnreadDealMessages($userId)
+    {
+        return $this->deals()
+            ->where('receiver_id', $userId)
+            ->whereNull('read_at')
+            ->count();
+    }
 }
