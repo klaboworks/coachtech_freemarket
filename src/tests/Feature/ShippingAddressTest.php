@@ -60,6 +60,9 @@ class ShippingAddressTest extends TestCase
             'user_id' => $user->id,
             'item_id' => $item->id,
             'payment_id' => $payment->id,
+            'seller_id' => $item->user_id,
+            'deal_done' => false,
+            'seller_rated' => false,
             'postal_code' => $oldPostalCode,
             'address1' => $oldAddress1,
             'address2' => $oldAddress2,
@@ -72,9 +75,12 @@ class ShippingAddressTest extends TestCase
             'user_id' => $user->id,
             'item_id' => $item->id,
             'payment_id' => $payment->id,
-            'postal_code' => $postal_code,
-            'address1' => $address1,
-            'address2' => $address2,
+            'seller_id' => $item->user_id,
+            'deal_done' => false,
+            'seller_rated' => false,
+            'postal_code' => $oldPostalCode,
+            'address1' => $oldAddress1,
+            'address2' => $oldAddress2,
         ]);
     }
 }
