@@ -114,41 +114,49 @@ class DealController extends Controller
 
     public function rateSeller(Request $request, Purchase $purchase)
     {
-        $request->validate([
-            'rating' => 'required|integer|min:1|max:5',
-        ]);
+        try {
+            $request->validate([
+                'rating' => 'required|integer|min:1|max:5',
+            ]);
 
-        $rating = new Rating();
-        $rating->rater_id = Auth::id(); // 評価を行ったユーザー（購入者）
-        $rating->rated_user_id = $purchase->seller_id; // 評価されたユーザー（出品者）
-        $rating->purchase_id = $purchase->id;
-        $rating->rating = $request->rating;
-        $rating->role = 'buyer'; // 評価者の役割
-        $rating->save();
+            $rating = new Rating();
+            $rating->rater_id = Auth::id(); // 評価を行ったユーザー（購入者）
+            $rating->rated_user_id = $purchase->seller_id; // 評価されたユーザー（出品者）
+            $rating->purchase_id = $purchase->id;
+            $rating->rating = $request->rating;
+            $rating->role = 'buyer'; // 評価者の役割
+            $rating->save();
 
-        // 購入者が評価したので deal_done を true に更新
-        $purchase->update(['deal_done' => true]);
+            // 購入者が評価したので deal_done を true に更新
+            $purchase->update(['deal_done' => true]);
 
-        return redirect()->route('items.index');
+            return redirect()->route('items.index');
+        } catch (\Exception) {
+            return redirect(route('items.index'))->withErrors(['caution' => '不正なアクセスです']);
+        }
     }
 
     public function rateBuyer(Request $request, Purchase $purchase)
     {
-        $request->validate([
-            'rating' => 'required|integer|min:1|max:5',
-        ]);
+        try {
+            $request->validate([
+                'rating' => 'required|integer|min:1|max:5',
+            ]);
 
-        $rating = new Rating();
-        $rating->rater_id = Auth::id(); // 評価を行ったユーザー（出品者）
-        $rating->rated_user_id = $purchase->user_id; // 評価されたユーザー（購入者）
-        $rating->purchase_id = $purchase->id;
-        $rating->rating = $request->rating;
-        $rating->role = 'seller'; // 評価者の役割
-        $rating->save();
+            $rating = new Rating();
+            $rating->rater_id = Auth::id(); // 評価を行ったユーザー（出品者）
+            $rating->rated_user_id = $purchase->user_id; // 評価されたユーザー（購入者）
+            $rating->purchase_id = $purchase->id;
+            $rating->rating = $request->rating;
+            $rating->role = 'seller'; // 評価者の役割
+            $rating->save();
 
-        // 出品者が評価したので seller_rated を true に更新
-        $purchase->update(['seller_rated' => true]);
+            // 出品者が評価したので seller_rated を true に更新
+            $purchase->update(['seller_rated' => true]);
 
-        return redirect()->route('items.index');
+            return redirect()->route('items.index');
+        } catch (\Exception) {
+            return redirect(route('items.index'))->withErrors(['caution' => '不正なアクセスです']);
+        }
     }
 }

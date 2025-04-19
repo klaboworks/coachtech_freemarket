@@ -19,6 +19,9 @@ class ItemPolicy
     public function checkRelatedUsers(User $user, Item $item): Response
     {
         foreach ($item->sales as $purchase) {
+            if ($purchase->seller_rated == true) {
+                return Response::deny('No Rights');
+            }
             if ($user->id == $purchase->user_id || $user->id == $purchase->seller_id) {
             }
             return Response::allow();
