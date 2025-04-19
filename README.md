@@ -81,6 +81,22 @@ MAIL_FROM_ADDRESSは任意のメールアドレスを入力してください。
 
 開発環境：http://localhost/
 
+### テストアカウント
+    ■テストアカウント1
+    name:　user1
+    email:　user1@test.com
+    password:　pass
+
+    ■テストアカウント2
+    name:　user2
+    email:　user2@test.com
+    password:　pass
+
+    ■テストアカウント3
+    name:　user3
+    email:　user3@test.com
+    password:　pass
+
 ## テスト環境整備
 
 ### テスト用データベース作成
