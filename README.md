@@ -27,7 +27,13 @@
 ### MAILER 送信設定
 
 本アプリケーションは Mailtrap を想定したメール送信機能を実装しています。
-.env ファイルの MAIL の項目を適切な設定に更新してください。
+
+以下のリンクから会員登録をしてください。</br>
+https://mailtrap.io/
+
+メールボックスのIntegrationsから 「PHP > laravel 9+」を選択し、</br>
+.envファイルのMAIL_MAILERからMAIL_ENCRYPTIONまでの項目をコピー＆ペーストしてください。</br>
+MAIL_FROM_ADDRESSは任意のメールアドレスを入力してください。
 
 ### .env ファイのル LOCAL 項目を下記に変更
 

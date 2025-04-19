@@ -6,11 +6,14 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\DealCompletedNotification;
 use App\Http\Requests\DealRequest;
 use App\Models\Deal;
 use App\Models\Item;
 use App\Models\Purchase;
 use App\Models\Rating;
+use App\Models\User;
 
 class DealController extends Controller
 {
@@ -95,7 +98,16 @@ class DealController extends Controller
     public function dealDone(Request $request)
     {
         $deal_done = $request->only(['deal_done']);
-        Purchase::find($request->purchase_id)->update($deal_done);
+        $purchase = Purchase::findOrFail($request->purchase_id);
+        $purchase->update($deal_done);
+
+        // 出品者、商品、購入者の情報を取得
+        $seller = User::findOrFail($purchase->seller_id);
+        $item = Item::findOrFail($purchase->item_id);
+        $buyer = User::findOrFail($purchase->user_id);
+
+        // 出品者に取引完了メールを送信
+        Mail::to($seller->email)->send(new DealCompletedNotification($purchase, $item, $buyer));
 
         return redirect()->route('purchase.deal.show', ['item' => $request->route('item')]);
     }
